@@ -1,0 +1,44 @@
+<div class="side-form">
+  <h1>{{title}}</h1>
+  <div class="form-container">
+<button class="btn btn-success" (click)="test()">Test</button>
+
+
+  </div>
+</div>
+
+<div class="filemanager" [ngClass]="{'visible': show}" ngDraggable [handle]="DemoHandle">
+  <div class="topbar" #DemoHandle>
+    <div style="display: inline-block;"><button class="button-upload"><span class="fa fa-plus"></span> Upload</button></div>
+    <h1 class="topbar-title">File Manager</h1></div>git
+  <div>
+    <div class="workzone-left">
+      <div><span class="fa fa-caret-down caretdown"></span><span class="workzone-title">IMAGE PRINCIPALE</span></div>
+
+      <div style="height: 80px;width: 100%; text-align: center;" dnd-droppable (onDropSuccess)="dropOne($event)">
+        <img *ngIf="principale" [src]="'assets/img/brand/' + principale" dnd-draggable [dragData]="[principale, 'principale']"
+             style="max-width: 100px;max-height: 100px;" />
+      </div>
+
+      <div><span class="fa fa-caret-down caretdown"></span><span class="workzone-title">IMAGES SUPP.</span></div>
+
+      <div class="multiple-zone" dnd-droppable (onDropSuccess)="dropMulti($event)">
+
+        <ng-container *ngFor="let m of multiple">
+          <img [src]="'assets/img/brand/' + m" dnd-draggable [dragData]="[m,'multiple']" style="max-width: 120px;max-height: 120px;margin-bottom: 10px;" />
+        </ng-container>
+
+      </div>
+    </div>
+    <div class="workzone-right">
+
+      <ng-container *ngFor="let i of img">
+        <div class="thumb"  dnd-droppable (onDropSuccess)="dropOut($event)">
+          <img [src]="'assets/img/brand/' + i" [alt]="i" style="max-width: 100px;max-height: 100px;"
+               dnd-draggable [dragData]="[i, 'list']"/><br/>
+          <span class="stick-bottom">{{ i }}</span></div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

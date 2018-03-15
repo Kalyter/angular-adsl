@@ -1,0 +1,44 @@
+ <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg site-header py-1 scrolling-navbar">
+    <logo>
+    <a class="py-2" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mr-5"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+    </a>
+    </logo>
+    <links>
+      <ul class="navbar-nav container d-flex flex-md-row justify-content-between">
+        <ng-container *ngFor="let m of menu | Orderby : 'order'">
+
+          <ng-container *ngIf="thereIsUnder(m._id, categories); then thenBlock else elseBlock"></ng-container>
+
+          <ng-template #thenBlock>
+          <li class="nav-item dropdown-m">
+            <a type="button" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
+
+            <div class="dropdown-content">
+              <ng-container *ngFor="let c of categories | Orderby : 'order'; let i=index">
+              <a *ngIf="c.menu_id==m._id;" href="#">{{c.title}}</a>
+              </ng-container>
+            </div>
+          </li>
+          </ng-template>
+
+          <ng-template #elseBlock>
+          <li class="nav-item">
+            <a class="nav-link py-2" [routerLink]="m.link" routerLinkActive="active">{{m.title}}</a>
+          </li>
+          </ng-template>
+
+        </ng-container>
+      </ul>
+    </links>
+  </mdb-navbar>
+
+
+<div class="position-relative overflow-hidden text-center bg-light" style="height: 420px;background-image: url('assets/img/site/2.jpg') ;background-repeat: no-repeat ;background-position: 50% 35% ;background-color: transparent ;background-size: cover;">
+  <div class="topban">
+    <!--<h1 class="display-4 font-weight-normal ombre">A.D.S.L.</h1>-->
+    <!--<p class="leadat font-weight-normal ombre">Assistance Dépannage Service Labo</p>-->
+  </div>
+</div>
+<div>
+</div>

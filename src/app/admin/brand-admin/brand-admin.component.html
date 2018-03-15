@@ -1,0 +1,46 @@
+<app-bar-menu></app-bar-menu>
+<br/>
+<h1>Marques</h1><br/><br/>
+<a routerLink="add" class="btn btn-primary">Ajouter Marque</a><br/><br/>
+
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Marques
+  </div>
+  <div class="card-body">
+    <ul class="list-group" dnd-sortable-container [sortableData]="brand">
+      <li *ngFor="let b of brand; let i = index" [dragData]="brand"
+          dnd-sortable [sortableIndex]="i" (onDropSuccess)="orderBrands(i, $event)" class="list-group-item">
+        <small>Position : <b>{{b.order}}</b></small> -
+        <small>Nom de la marque : </small><b>{{b.title}}</b>
+        <a class="waves-effect btn btn-success text-white ml-3" (click)="test.toggle()" mdbRippleRadius> Détails</a>
+
+        <a mwlConfirmationPopover
+           [popoverTitle]="popoverTitle"
+           [popoverMessage]="popoverMessage"
+           placement="left"
+           (confirm)="deleteBrand(b._id)"
+           (cancel)="cancelClicked = true" class="btn btn-danger text-white float-right ml-3">Delete</a>
+        <a [routerLink]="['edit', b._id]" class="btn btn-info text-white float-right"> Edit</a><br/>
+        <div class="mt-1" [mdbCollapse]="isCollapsed" #test="bs-collapse">
+          <div class="card card-body mt-1">
+            <div class="row featurette">
+              <div class="col-md-5">
+                <p class="lead">{{b.description}}</p>
+              </div>
+              <div class="col-md-7" [style.background-image]="'url(assets/img/brand/' + b.img + ')'" style="min-height:150px;background-size: contain;background-repeat: no-repeat;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="view-side-form">
+
+  <router-outlet></router-outlet>
+
+</div>

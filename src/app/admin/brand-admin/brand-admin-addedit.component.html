@@ -1,0 +1,26 @@
+<div class="side-form">
+  <h1>{{title}}</h1>
+  <div class="form-container">
+    <form #statusNgForm='ngForm' (submit)='handleSubmit()'>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" [(ngModel)]="brand.title" required />
+      </div>
+      <div class="form-group">
+        <label for="file">Choose File</label>
+        <input #myInput type="file"
+               id="file"
+               (change)="handleFileInput($event.target.files)">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea [(ngModel)]="brand.description" rows="5" id='description' name='description' class="form-control" required></textarea>
+      </div>
+      <div class="form-group">
+        <a class="btn btn-default" routerLink="/admin/brand">Cancel</a>
+        <button class="btn btn-primary" >Save</button>
+        <button class="btn btn-primary" (click)='resetFileInput()'>Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<app-bar-menu></app-bar-menu>
+<br/>
+<h1>Articles</h1><br/><br/>
+<a routerLink="add" class="btn btn-primary">Ajouter un article</a>
+<br/><br/>
+
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Articles
+  </div>
+  <div class="card-body">
+
+    <ng-container *ngFor="let c of categories;">
+
+      <span *ngIf="thereIsUnder(c._id, articles)" class="m-2">Categories : {{ c.title }}</span>
+      <ul class="list-group" >
+        <ng-container *ngFor="let a of articles; let i=index">
+
+          <li *ngIf="a.cat_id==c._id" class="list-group-item" >
+            <small>Titre de l'article : </small><b>{{a.title}}</b>
+
+            <a class="btn btn-danger text-white float-right ml-3">Delete</a>
+            <a class="btn btn-info text-white float-right"> Edit</a><br/>
+          </li>
+        </ng-container>
+      </ul>
+
+    </ng-container>
+
+  </div>
+</div>
+<div>
+
+
+
+</div>
+<div class="view-side-form">
+
+  <router-outlet></router-outlet>
+
+</div>

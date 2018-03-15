@@ -1,0 +1,39 @@
+<div class="side-form">
+  <h1>{{title}}</h1>
+  <div class="form-container">
+    <form [formGroup]="statusCreateForm" #statusNgForm='ngForm' (submit)='handleSubmit(statusNgForm, statusCreateForm)'>
+      <div class="form-group" >
+        <label for="name">Name</label>
+        <input type="text" class="form-control"  formControlName="title" />
+      </div>
+      <div *ngIf="categories.title.invalid && (categories.title.dirty || categories.title.touched)"
+           class="alert alert-danger">
+
+        <div *ngIf="categories.title.errors.required">
+          Name is required.
+        </div>
+      </div>
+      <div class="form-group"  >
+        <label for="Menu">Menu</label>
+      <select class="form-control" formControlName="menu_id">
+        <ng-container *ngFor="let m of listmenu | Orderby : 'order'">
+        <option value="{{m._id}}">{{m.title}}</option>
+        </ng-container>
+      </select>
+        <div *ngIf="categories.menu_id.invalid && (categories.menu_id.dirty || categories.menu_id.touched)"
+             class="alert alert-danger">
+          <div *ngIf="categories.menu_id.errors.required">
+            Menu is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-checkbox formControlName="under_menu">Souhaitez-vous faire apparaître cette catégorie en sous-menu ?</mat-checkbox>
+      </div>
+      <div class="form-group">
+        <a class="btn btn-default" routerLink="/admin/categories">Cancel</a>
+        <button class="btn btn-primary" [disabled]='statusCreateForm.invalid'>Save</button>
+      </div>
+    </form>
+  </div>
+</div>

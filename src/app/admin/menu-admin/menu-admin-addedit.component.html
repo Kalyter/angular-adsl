@@ -1,0 +1,20 @@
+<div class="side-form">
+  <h1>{{title}}</h1>
+  <div class="form-container">
+    <form (ngSubmit)="saveMenu()">
+      <div class="form-group">
+        <label for="title">Nom du Menu</label>
+        <input type="text" name="title" [(ngModel)]="menu.title" class="form-control" required />
+      </div>
+      <div class="form-group">
+        <label for="link">Lien</label>
+        <input type="text" name="link" [(ngModel)]="menu.link" class="form-control" required />
+      </div>
+      <div class="form-group">
+        <input type="hidden" name="order" [(ngModel)]="menu.order" class="form-control" value="0" />
+        <a class="btn btn-light" routerLink="/admin/menu">Cancel</a>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

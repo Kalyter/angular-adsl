@@ -1,0 +1,31 @@
+<app-bar-menu></app-bar-menu>
+<br/>
+<h1>Menu</h1><br/><br/>
+<a routerLink="add" class="btn btn-primary">Ajouter Menu</a><br/><br/>
+
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Menu
+  </div>
+  <div class="card-body">
+    <ul class="list-group" dnd-sortable-container [sortableData]="menu">
+      <li *ngFor="let m of menu;  let i = index" [dragData]="menu" class="list-group-item"
+          dnd-sortable [sortableIndex]="i"  (onDropSuccess)="OrderMenus(i, $event)">
+        <small>Position : <b>{{m.order}}</b></small> -
+        <small>Nom du menu : </small><b>{{m.title}}</b> -
+        <small>Lien du menu : </small> <b>{{m.link}}</b>
+
+        <a mwlConfirmationPopover
+           [popoverTitle]="popoverTitle"
+           [popoverMessage]="popoverMessage"
+           placement="left"
+           (confirm)="deleteMenu(m._id)"
+           (cancel)="cancelClicked = true" class="btn btn-danger text-white float-right ml-3">Delete</a>
+        <a [routerLink]="['edit', m._id]" class="btn btn-info text-white float-right"> Edit</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="view-side-form">
+  <router-outlet></router-outlet>
+</div>
