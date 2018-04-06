@@ -19,6 +19,9 @@ var Categories = new Schema ({
   },
   under_menu: {
     type: Boolean, default: false
+  },
+  cat_id:{
+    type: Number
   }
 },
 {

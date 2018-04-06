@@ -12,11 +12,11 @@
 
           <ng-template #thenBlock>
           <li class="nav-item dropdown-m">
-            <a type="button" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
+            <a type="button" routerLinkActive="active"  [routerLink]="['/articles', 'menu', m._id]" [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
 
             <div class="dropdown-content">
               <ng-container *ngFor="let c of categories | Orderby : 'order'; let i=index">
-              <a *ngIf="c.menu_id==m._id;" href="#">{{c.title}}</a>
+              <a *ngIf="c.menu_id==m._id;" routerLinkActive="active" [routerLink]="['/articles', 'cat', c._id]" >{{c.title}}</a>
               </ng-container>
             </div>
           </li>
@@ -24,7 +24,7 @@
 
           <ng-template #elseBlock>
           <li class="nav-item">
-            <a class="nav-link py-2" [routerLink]="m.link" routerLinkActive="active">{{m.title}}</a>
+            <a class="nav-link py-2" routerLinkActive="active" [routerLink]="['/articles', 'menu', m._id]" [routerLinkActiveOptions]="{ exact: true }">{{m.title}}</a>
           </li>
           </ng-template>
 

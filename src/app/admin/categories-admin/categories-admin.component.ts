@@ -55,7 +55,6 @@ export class CategoriesAdminComponent implements OnInit {
           let arr = Object.keys( result ).map(function ( key ) { return result[key]; });
           this.data = Math.max.apply( Math, arr.map(function(o){return o.order;}) );
           this.categoriesService.changeOrder(this.data);
-          console.log(this.data);
         }, 1000);
       });
   }
@@ -73,6 +72,9 @@ export class CategoriesAdminComponent implements OnInit {
   }
 
   thereIsUnder(idmenu: number, req2: any) {
+    if(!req2) return [];
+    if(!idmenu) return req2;
+
     var req3 = req2.map(i => i.menu_id);
     let req4 = req3.filter(function(element){return (element==idmenu)});
     return req4.length !== 0;

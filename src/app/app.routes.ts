@@ -36,7 +36,8 @@ export const routes: Routes = [
     path: 'admin/articles',
     component: ArticlesAdminComponent,
     children: [
-      { path: 'add', component: ArticlesAdminAddComponent,  data: { animation: 'addart' } }
+      { path: 'add', component: ArticlesAdminAddComponent,  data: { animation: 'addart' } },
+      { path: 'edit/:id', component: ArticlesAdminAddComponent,  data: { animation: 'editart' } }
     ],  data: { animation: 'adminart' }
   },
   {
@@ -49,7 +50,7 @@ export const routes: Routes = [
   },
   { path: 'main', component: MainComponent,  data: { animation: 'main' }},
   { path: 'articles/:for/:id', component: ArticlesComponent,  children: [
-    { path: 'view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart' } }
+    { path: '../../view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart' } }
   ],  data: { animation: 'articles' }
   }
 ];

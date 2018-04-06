@@ -18,6 +18,41 @@ export class ArticlesService {
 
   }
 
+  addArticle(articles) {
+    const uri = '/api/articles/add';
+    const obj = articles;
+    this._http.post(uri, obj)
+      .subscribe(res => console.log('Done'));
+  }
+
+  editArticle(id) {
+    const uri = '/api/articles/edit/' + id;
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
+  }
+
+  updateArticle(obj, id) {
+    const uri = '/api/articles/update/' + id;
+    this
+      ._http
+      .post(uri, obj)
+      .subscribe(res => console.log('Done'));
+  }
+
+  deleteArticle(id) {
+    const uri = '/api/articles/delete/' + id;
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
+  }
+
   getImagesArticles() {
     const uri = '/api/files/';
     return this
@@ -27,6 +62,16 @@ export class ArticlesService {
         return res;
       });
 
+  }
+
+  uploadImages(images) {
+    const uri = '/api/files/upload';
+    const obj = images;
+    return this._http.post(uri, obj)
+      .toPromise()
+      .catch(reason => {
+        console.log(reason);
+      });
   }
 
   getArticlesCat(id) {

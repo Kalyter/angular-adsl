@@ -20,13 +20,17 @@ export class CategoriesAdminAddeditComponent implements OnInit {
     title: String,
     menu_id: String,
     order: Number,
-    under_menu: Boolean
+    under_menu: Boolean,
+    cat_id: Number
   };
   listmenu: any;
   count: number = 0;
   message: number;
   statusCreateForm: FormGroup;
   editId:number;
+  listcat: any;
+  menu_select: any;
+  show: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -60,10 +64,14 @@ export class CategoriesAdminAddeditComponent implements OnInit {
     ]);
     this.categories.under_menu  = new FormControl("", [
     ]);
+    this.categories.cat_id  = new FormControl("", [
+    ]);
+
     this.statusCreateForm = new FormGroup({
       'title':  this.categories.title,
       'menu_id': this.categories.menu_id,
-      'under_menu': this.categories.under_menu
+      'under_menu': this.categories.under_menu,
+      'cat_id': this.categories.cat_id
     });
 
 
@@ -79,10 +87,38 @@ export class CategoriesAdminAddeditComponent implements OnInit {
             .setValue(this.categories.menu_id);
           (<FormControl>this.statusCreateForm.controls['under_menu'])
             .setValue(this.categories.under_menu);
+          (<FormControl>this.statusCreateForm.controls['cat_id'])
+            .setValue(this.categories.cat_id);
+
+          if(this.categories.cat_id !== null && this.categories.cat_id !== 'undefined')
+          {
+            this.getCategories();
+          }
+
         });
+
 
     }
 
+  }
+
+  trackByFn(index, item) {
+    return index;
+  }
+
+  getCategories(){
+
+    this.show = !this.show;
+
+    let e = (document.getElementById("menu_choose")) as HTMLSelectElement;
+    let sel = e.selectedIndex;
+    let opt = e.options[sel];
+
+    this.menu_select = opt.value;
+    console.log(this.menu_select);
+
+      this.categoriesService.getCategories()
+        .subscribe(result => this.listcat = result );
   }
 
   // add/edit categories function
@@ -107,6 +143,7 @@ export class CategoriesAdminAddeditComponent implements OnInit {
             let totalcount = this.count + 1;
             this.categories.order = totalcount;
             this.categoriesService.addCategorie(this.categories);
+            console.log(this.categories);
           }
           else{
             this.categoriesService.updateCategorie(this.categories, this.categories._id);

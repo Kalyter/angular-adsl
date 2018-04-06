@@ -7,11 +7,11 @@ export const fadeInAnimation =
       group([
         query(':enter', [
           style({ opacity:0 }),
-          animate('1000ms ease-in-out', style({ opacity:1 }))
+          animate('1000ms ease-in-out', style({ opacity:1 })), animateChild()
         ],{ optional: true }),
         query(':leave', [
           style({ opacity:1 }),
-          animate('1000ms ease-in-out', style({ opacity:0 }))],{ optional: true }),
+          animate('1000ms ease-in-out', style({ opacity:0 })),  animateChild()],{ optional: true }),
       ])
     ])
   ]);

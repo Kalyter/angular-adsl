@@ -12,18 +12,33 @@
 
     <ng-container *ngFor="let c of categories;">
 
-      <span *ngIf="thereIsUnder(c._id, articles)" class="m-2">Categories : {{ c.title }}</span>
-      <ul class="list-group" >
+      <table *ngIf="thereIsUnder(c._id, articles)" class="table table-striped">
+        <thead>
+        <tr>
+          <th width="30%"class="text-center">Categorie : {{ c.title }}</th>
+          <th width="20%">Title</th>
+          <th width="30%">Brand</th>
+          <th width="20%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         <ng-container *ngFor="let a of articles; let i=index">
-
-          <li *ngIf="a.cat_id==c._id" class="list-group-item" >
-            <small>Titre de l'article : </small><b>{{a.title}}</b>
-
-            <a class="btn btn-danger text-white float-right ml-3">Delete</a>
-            <a class="btn btn-info text-white float-right"> Edit</a><br/>
-          </li>
+        <tr *ngIf="a.cat_id==c._id">
+          <td colspan="2">{{a.title}}</td>
+          <ng-container *ngFor="let b of brands">
+          <td *ngIf="a.brand_id==b._id">{{b.title}}</td>
+          </ng-container>
+          <td>            <a mwlConfirmationPopover
+                             [popoverTitle]="popoverTitle"
+                             [popoverMessage]="popoverMessage"
+                             placement="left"
+                             (confirm)="deleteArticle(a._id)"
+                             (cancel)="cancelClicked = true" class="btn btn-danger btn-sm text-white float-right ml-3">Delete</a>
+            <a [routerLink]="['edit', a._id]" class="btn btn-info btn-sm text-white float-right"> Edit</a></td>
+        </tr>
         </ng-container>
-      </ul>
+        </tbody>
+      </table>
 
     </ng-container>
 

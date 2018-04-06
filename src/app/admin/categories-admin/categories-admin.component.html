@@ -16,9 +16,15 @@
       <ng-container *ngFor="let c of categories; let i=index">
       <li *ngIf="c.menu_id==mc._id;" class="list-group-item" [dragData]="categories"
           dnd-sortable [sortableIndex]="i" (onDropSuccess)="orderCategories(i, $event)" >
+        <span *ngIf="c.cat_id" style="margin-left: 50px;"></span>
         <small>Position : <b>{{c.order}}</b></small> -
         <small>Nom de la catégorie : </small><b>{{c.title}}</b>
-        <span *ngIf="c.under_menu" class="ml-2 text-success"> <b>Sous-menu</b></span>
+        <span *ngIf="c.under_menu" class="ml-2 text-success"> - <b>Est un sous-menu</b></span>
+
+        <ng-container *ngFor="let cc of categories;">
+          <span *ngIf="c.cat_id==cc._id" class="ml-2 text-info"> - Sous-catégorie de {{cc.title}}</span>
+        </ng-container>
+
 
         <a mwlConfirmationPopover
            [popoverTitle]="popoverTitle"
@@ -27,6 +33,7 @@
            (confirm)="deleteCategorie(c._id)"
            (cancel)="cancelClicked = true" class="btn btn-danger text-white float-right ml-3">Delete</a>
         <a [routerLink]="['edit', c._id]" class="btn btn-info text-white float-right"> Edit</a><br/>
+
       </li>
       </ng-container>
     </ul>
@@ -36,20 +43,6 @@
   </div>
 </div>
 <div>
-
-<!--
-  <ul *ngFor="let mc of menu;">
-    <span *ngIf="thereIsUnder(mc._id, categories)">  {{ mc.title }} </span>
-    <ng-template ngFor let-item [ngForOf]="categories";>
-
-      <div *ngIf="item.menu_id==mc._id;">
-        <div class="title"> location  {{ item.menu_id }} </div>
-        <div class="container"> {{ item.title}}</div>
-      </div>
-    </ng-template>
-  </ul>
--->
-
 
 </div>
 <div class="view-side-form">

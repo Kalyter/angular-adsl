@@ -1,44 +1,148 @@
-<div class="side-form">
-  <h1>{{title}}</h1>
-  <div class="form-container">
-<button class="btn btn-success" (click)="test()">Test</button>
+<div class="central-form-article">
+    <div class="form-container">
+      <form [formGroup]="statusCreateForm" #statusNgForm='ngForm' (submit)='handleSubmit(statusNgForm, statusCreateForm)'>
+        <div class="row">
+        <div class="col-lg-6">
+          <h1 style="display: inline-block;">{{title}}</h1><br/>
+          <button style="margin-left: 15px" type="button" class="btn btn-success" (click)="onOpen()">Pictures Manager</button>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group" >
+              <input type="text" class="form-control" placeholder="Type your title..." formControlName="title" />
+            </div>
+            <div *ngIf="articles.title.invalid && (articles.title.dirty || articles.title.touched)"
+                 class="alert alert-danger">
+              <div *ngIf="articles.title.errors.required">
+                Title is required.
+              </div>
+            </div>
 
+            <div class="form-group">
+              <select class="form-control" formControlName="cat_id">
+                <option value="" disabled selected hidden>Please choose a categorie...</option>
+                <ng-container *ngFor="let c of listcat | Orderby : 'order'">
+                  <option value="{{c._id}}">{{c.title}}</option>
+                </ng-container>
+              </select>
+              <div *ngIf="articles.cat_id.invalid && (articles.cat_id.dirty || articles.cat_id.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="articles.cat_id.errors.required">
+                  Categories is required.
+                </div>
+              </div>
+            </div>
 
+            <div class="form-group"  >
+              <select class="form-control" formControlName="brand_id">
+                <option value="" disabled selected hidden>Please choose a brand...</option>
+                <ng-container *ngFor="let b of listbrand | Orderby : 'order'">
+                  <option value="{{b._id}}">{{b.title}}</option>
+                </ng-container>
+              </select>
+              <div *ngIf="articles.brand_id.invalid && (articles.brand_id.dirty || articles.brand_id.touched)"
+                   class="alert alert-danger">
+                <div *ngIf="articles.brand_id.errors.required">
+                  Brands is required.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <label for="content">Content</label>
+          <ckeditor id="editor1" class="form-control"  formControlName="content" [config]="{uiColor: '#CCEAEE', toolbarGroups : [ { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+    { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] }, { name: 'styles' },
+    { name: 'colors' },
+    { name: 'tools' },
+    { name: 'others' },
+    { name: 'about' }]}"
+                    debounce="500" >
+            <div [innerHTML]="articles.content"></div>
+          </ckeditor>
+        </div>
+        <div *ngIf="articles.content.invalid && (articles.content.dirty || articles.content.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="articles.content.errors.required">
+            Content is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <a class="btn btn-default" routerLink="/admin/articles">Cancel</a>
+          <button class="btn btn-primary" [disabled]='statusCreateForm.invalid'>Save</button>
+        </div>
+      </form>
   </div>
 </div>
 
-<div class="filemanager" [ngClass]="{'visible': show}" ngDraggable [handle]="DemoHandle">
+
+
+
+<div class="filemanager" [hidden]="!show" ngDraggable [handle]="DemoHandle">
   <div class="topbar" #DemoHandle>
-    <div style="display: inline-block;"><button class="button-upload"><span class="fa fa-plus"></span> Upload</button></div>
-    <h1 class="topbar-title">File Manager</h1></div>git
+    <nav class="control-window">
+      <a (click)="show = !show" class="closed">close</a>
+      <a (click)="show = !show" class="minimize">minimize</a>
+      <a (click)="show = !show" class="maximize">maximize</a>
+    </nav>
+      <a class="button-upload" (click)="show2 = !show2"><span class="fa fa-plus"></span> Upload</a>
+    <h1 class="topbar-title">File Manager</h1>
+    <input class="search-file" [(ngModel)]="searchText" placeholder="Search"/>
+  </div>
   <div>
     <div class="workzone-left">
-      <div><span class="fa fa-caret-down caretdown"></span><span class="workzone-title">IMAGE PRINCIPALE</span></div>
+      <div><span class="fa fa-caret-down caretdown"></span><span class="workzone-title">Image Principale</span></div>
 
       <div style="height: 80px;width: 100%; text-align: center;" dnd-droppable (onDropSuccess)="dropOne($event)">
-        <img *ngIf="principale" [src]="'assets/img/brand/' + principale" dnd-draggable [dragData]="[principale, 'principale']"
+        <img *ngIf="principale" [src]="'assets/img/articles/' + principale" dnd-draggable [dragData]="[principale, 'principale']"
              style="max-width: 100px;max-height: 100px;" />
       </div>
 
-      <div><span class="fa fa-caret-down caretdown"></span><span class="workzone-title">IMAGES SUPP.</span></div>
+      <div><span class="fa fa-caret-down caretdown"></span><span class="workzone-title">Images Suppl.</span></div>
 
       <div class="multiple-zone" dnd-droppable (onDropSuccess)="dropMulti($event)">
 
         <ng-container *ngFor="let m of multiple">
-          <img [src]="'assets/img/brand/' + m" dnd-draggable [dragData]="[m,'multiple']" style="max-width: 120px;max-height: 120px;margin-bottom: 10px;" />
+          <img [src]="'assets/img/articles/' + m" dnd-draggable [dragData]="[m,'multiple']" style="max-width: 120px;max-height: 120px;margin-bottom: 10px;" />
         </ng-container>
 
       </div>
     </div>
-    <div class="workzone-right">
+    <div class="workzone-right" dnd-droppable (onDropSuccess)="dropOut($event)">
 
-      <ng-container *ngFor="let i of img">
-        <div class="thumb"  dnd-droppable (onDropSuccess)="dropOut($event)">
-          <img [src]="'assets/img/brand/' + i" [alt]="i" style="max-width: 100px;max-height: 100px;"
+      <ng-container *ngFor="let i of img  | search : searchText">
+        <div class="thumb-2" >
+          <img class="thumb" [src]="'assets/img/articles/' + i" [alt]="i"
                dnd-draggable [dragData]="[i, 'list']"/><br/>
-          <span class="stick-bottom">{{ i }}</span></div>
+          <span>{{ i }}</span></div>
       </ng-container>
 
     </div>
+  </div>
+</div>
+
+
+<div class="filemanager2" *ngIf="show2" ngDraggable [handle]="DemoHandle2">
+  <div class="topbar2" #DemoHandle2>
+    <nav class="control-window">
+      <a (click)="show2 = !show2" class="closed">close</a>
+      <a (click)="show2 = !show2" class="minimize">minimize</a>
+      <a (click)="show2 = !show2" class="maximize">maximize</a>
+    </nav>
+    <h1 class="topbar-title">Upload Manager</h1>
+  </div>
+  <div id="progress_bar"><div class="percent" id="percent">0%</div></div>
+    <div dnd-droppable class="dropzone-upload"
+         (onDropSuccess)="transferDataSuccess($event.mouseEvent.dataTransfer)">
+      <div style="text-align: center;margin: 2em 0;">
+        <input (change)="transferDataSuccess($event.target)" style="position: absolute; opacity: 0; filter: alpha(opacity = 0);width: 100%;height: 100%;top:0;left:0;" type="file" name="file" multiple />
+        <div>
+          <span style="font-weight: 700;text-transform: uppercase;">Drop files to upload</span>
+          <p style="line-height: 1.25;color: #909ba1;font-size: .9em;">or click to pick manually</p>
+        </div>
+      </div>
+      <output id="list"></output>
   </div>
 </div>

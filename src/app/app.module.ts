@@ -33,6 +33,11 @@ import {ViewArticlesComponent} from "./articles/view-articles.component";
 import { ArticlesAdminComponent } from './admin/articles-admin/articles-admin.component';
 import {ArticlesAdminAddComponent} from "./admin/articles-admin/articles-admin-add.component";
 import {AngularDraggableModule} from "angular2-draggable";
+import {FilterSearchPipe} from "./pipes/filter-search";
+import { CKEditorModule } from 'ng2-ckeditor';
+import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from "@angular/router";
+
+
 
 @NgModule({
   declarations: [
@@ -50,6 +55,7 @@ import {AngularDraggableModule} from "angular2-draggable";
     BarMenuComponent,
     CategoriesAdminAddeditComponent,
     FilterItemPipe,
+    FilterSearchPipe,
     HoverContainerComponent,
     ViewArticlesComponent,
     ArticlesAdminComponent,
@@ -59,6 +65,7 @@ import {AngularDraggableModule} from "angular2-draggable";
     BrowserModule,
     FormsModule,
     routing,
+    [CKEditorModule],
     MatCheckboxModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -70,9 +77,11 @@ import {AngularDraggableModule} from "angular2-draggable";
       confirmButtonType: 'danger' // set defaults here
     })
   ],
-  schemas: [ NO_ERRORS_SCHEMA ],
+  schemas: [ NO_ERRORS_SCHEMA],
   providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService],
   bootstrap: [AppComponent, MenuComponent]
 })
 
 export class AppModule { }
+
+

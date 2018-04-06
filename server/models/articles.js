@@ -14,7 +14,10 @@ var Articles = new Schema ({
   content: {
     type: String
   },
-  img: {
+  img_head: {
+    type: String
+  },
+  img_plus: {
     type: []
   },
   cat_id: {

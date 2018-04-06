@@ -61,6 +61,7 @@ CategoriesRoutes.route('/update/:id').post(function (req, res) {
       categories.title = req.body.title;
       categories.menu_id = req.body.menu_id;
       categories.under_menu = req.body.under_menu;
+      categories.cat_id = req.body.cat_id;
 
       categories.save().then(Categories => {
         res.json('Update complete');})

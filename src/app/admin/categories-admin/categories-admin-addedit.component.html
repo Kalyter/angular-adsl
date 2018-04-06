@@ -15,7 +15,7 @@
       </div>
       <div class="form-group"  >
         <label for="Menu">Menu</label>
-      <select class="form-control" formControlName="menu_id">
+      <select id="menu_choose" class="form-control" formControlName="menu_id">
         <ng-container *ngFor="let m of listmenu | Orderby : 'order'">
         <option value="{{m._id}}">{{m.title}}</option>
         </ng-container>
@@ -27,6 +27,16 @@
           </div>
         </div>
       </div>
+      <button *ngIf="!show" type="button" class="btn btn-secondary btn-sm mb-1" (click)="getCategories()">Transformer sous-catégorie</button>
+      <div *ngIf="show" class="form-group" >
+        <label for="Menu">Catégorie principale</label>
+        <select class="form-control" formControlName="cat_id">
+          <ng-container *ngFor="let c of listcat; trackBy: trackByFn">
+            <option *ngIf="menu_select==c.menu_id" value="{{c._id}}">{{c.title}}</option>
+          </ng-container>
+        </select>
+      </div>
+
       <div class="form-group">
         <mat-checkbox formControlName="under_menu">Souhaitez-vous faire apparaître cette catégorie en sous-menu ?</mat-checkbox>
       </div>

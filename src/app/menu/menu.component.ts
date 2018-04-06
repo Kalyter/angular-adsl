@@ -4,13 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import {Subscription} from "rxjs/Subscription";
 import {PubSubService} from "../../services/pub-sub.service";
 import {CategoriesService} from "../../services/categories.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['../app.component.css'],
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   menu:any;
   categories:any;
@@ -54,6 +55,8 @@ export class MenuComponent implements OnInit {
     this.categoriesService.getCategories()
       .subscribe(result => {
         this.categories = result;
+
+        this.categories = this.categories.filter(element => {return element.under_menu == true});
       });
   }
 }

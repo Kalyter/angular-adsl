@@ -26,9 +26,8 @@ export class HoverContainerComponent {
     const host = event.target as HTMLElement;
     const w = host.offsetWidth;
     const h = host.offsetHeight;
-
-    const x = (event.pageX - host.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
-    const y = (event.pageY - host.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+    const x = (event.clientX - host.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+    const y = (event.clientY - host.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
     const states = ['top', 'right', 'bottom', 'left'];
     const side = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
     this.state = `${direction}-${states[side]}`;
