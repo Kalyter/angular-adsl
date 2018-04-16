@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ArticlesService} from "../../services/articles.service";
+import {ArticlesService} from "../services/articles.service";
 import {fadeTransition} from "../animations/fade2.animation";
 import {ActivatedRoute} from "@angular/router";
 

@@ -1,14 +1,14 @@
-var express = require('express');
-var app = express();
-var FilesRoutes = express.Router();
-var fs = require("fs");
+const express = require('express');
+const app = express();
+const FilesRoutes = express.Router();
+const fs = require("fs");
 
-var dir = 'dist/assets/img/articles';
+const dir = 'dist/assets/img/articles';
 
-var multer = require('multer');
+const multer = require('multer');
 const mime = require('mime');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'dist/assets/img/articles/')
   },
@@ -18,12 +18,12 @@ var storage = multer.diskStorage({
 
   }
 });
-var upload = multer({storage: storage}).single('file');
+const upload = multer({storage: storage}).single('file');
 
 
 // Defined get data(index or listing) route
 FilesRoutes.route('/').get(function (req, res) {
-  var files = fs.readdirSync(dir);
+  let files = fs.readdirSync(dir);
   res.json(files);
 });
 

@@ -1,10 +1,10 @@
-var express = require('express');
-var app = express();
-var BrandRoutes = express.Router();
-var multer = require('multer');
+const express = require('express');
+const app = express();
+const BrandRoutes = express.Router();
+const multer = require('multer');
 const mime = require('mime');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'dist/assets/img/brand/')
   },
@@ -14,10 +14,10 @@ var storage = multer.diskStorage({
 
   }
 });
-var upload = multer({storage: storage}).single('photo');
+const upload = multer({storage: storage}).single('photo');
 
 // Require Item model in our routes module
-var Brand = require('../models/Brand');
+const Brand = require('../models/Brand');
 
 
 // Defined get data(index or listing) route
@@ -36,7 +36,7 @@ BrandRoutes.route('/').get(function (req, res) {
 
 BrandRoutes.route('/add').post(function (req, res) {
 
-  var brand = new Brand(req.body);
+  let brand = new Brand(req.body);
   brand.save()
     .then(item => {
     res.status(200).json({'coin': 'Coin added successfully'});})
@@ -47,7 +47,7 @@ BrandRoutes.route('/add').post(function (req, res) {
 });
 
 BrandRoutes.route('/upload').post(function (req, res, next) {
-  var path = '';
+  let path = '';
   upload(req, res, function (err) {
     if (err) {
       // An error occurred when uploading
@@ -60,7 +60,7 @@ BrandRoutes.route('/upload').post(function (req, res, next) {
 });
 
 BrandRoutes.route('/edit/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
   Brand.findById(id, function (err, brand) {
     res.json(brand);
   });
@@ -100,9 +100,9 @@ BrandRoutes.route('/delete/:id').get(function (req, res) {
 });
 
 BrandRoutes.route('/uporder').put(function (req, res) {
-  var updates = [];
+  let updates = [];
   req.body.forEach(function (item) {
-    var updatePromise = Brand.update({_id: item._id}, {"$set": {"order": item.order}}, {multi: true});
+    let updatePromise = Brand.update({_id: item._id}, {"$set": {"order": item.order}}, {multi: true});
     updates.push(updatePromise);
   });
 

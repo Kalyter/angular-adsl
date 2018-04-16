@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ArticlesService} from "../../../services/articles.service";
-import {CategoriesService} from "../../../services/categories.service";
-import {BrandService} from "../../../services/brand.service";
-import {PubSubService} from "../../../services/pub-sub.service";
+import {ArticlesService} from "../../services/articles.service";
+import {CategoriesService} from "../../services/categories.service";
+import {BrandService} from "../../services/brand.service";
+import {PubSubService} from "../../services/pub-sub.service";
 import {Subscription} from "rxjs/Subscription";
 import {Router} from "@angular/router";
 

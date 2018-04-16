@@ -2,8 +2,8 @@ import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {routerTransition} from "../../animations/slide.animation";
-import {PubSubService} from "../../../services/pub-sub.service";
-import {BrandService} from "../../../services/brand.service";
+import {PubSubService} from "../../services/pub-sub.service";
+import {BrandService} from "../../services/brand.service";
 
 @Component({
   moduleId: module.id.toString(),

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {MenuService} from "../../../services/menu.service";
+import {MenuService} from "../../services/menu.service";
 import {routerTransition} from "../../animations/slide.animation";
-import {PubSubService} from "../../../services/pub-sub.service";
-import {CategoriesService} from "../../../services/categories.service";
+import {PubSubService} from "../../services/pub-sub.service";
+import {CategoriesService} from "../../services/categories.service";
 import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
 
 

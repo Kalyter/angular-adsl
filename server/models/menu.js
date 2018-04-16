@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var autoIncrement = require('mongoose-auto-increment');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
 const   config = require('../config/DB');
-var connection = mongoose.createConnection(config.DB);
+const connection = mongoose.createConnection(config.DB);
 
 autoIncrement.initialize(connection);
 
 // Define collection and schema for Items
-var Menu = new Schema ({
+let Menu = new Schema ({
   title: {
     type: String
   },

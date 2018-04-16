@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
-var CategoriesRoutes = express.Router();
+const express = require('express');
+const app = express();
+const CategoriesRoutes = express.Router();
 
 // Require Item model in our routes module
-var Categories = require('../models/categories');
+const Categories = require('../models/categories');
 
 // Defined get data(index or listing) route
 CategoriesRoutes.route('/').get(function (req, res) {
@@ -20,7 +20,7 @@ CategoriesRoutes.route('/').get(function (req, res) {
 });
 
 CategoriesRoutes.route('/getmenu/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
   Categories.find()
     .where({ menu_id: id })
     .exec(function (err, art) {
@@ -34,7 +34,7 @@ CategoriesRoutes.route('/getmenu/:id').get(function (req, res) {
 });
 
 CategoriesRoutes.route('/add').post(function (req, res) {
-  var categories = new Categories(req.body);
+  let categories = new Categories(req.body);
   categories.save()
     .then(item => {
     res.status(200).json({'coin': 'Coin added successfully'});
@@ -45,7 +45,7 @@ CategoriesRoutes.route('/add').post(function (req, res) {
 });
 
 CategoriesRoutes.route('/edit/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
   Categories.findById(id, function (err, cat) {
     res.json(cat);
   });
@@ -81,9 +81,9 @@ CategoriesRoutes.route('/update/:id').post(function (req, res) {
   });
 
 CategoriesRoutes.route('/uporder').put(function (req, res) {
-  var updates = [];
+  let updates = [];
   req.body.forEach(function (item) {
-    var updatePromise = Categories.update({_id: item._id}, {"$set": {"order": item.order}}, {multi: true});
+    let updatePromise = Categories.update({_id: item._id}, {"$set": {"order": item.order}}, {multi: true});
     updates.push(updatePromise);
   });
 

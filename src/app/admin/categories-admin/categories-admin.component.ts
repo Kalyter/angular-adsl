@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {CategoriesService} from "../../../services/categories.service";
-import {PubSubService} from "../../../services/pub-sub.service";
+import {CategoriesService} from "../../services/categories.service";
+import {PubSubService} from "../../services/pub-sub.service";
 import {Subscription} from "rxjs/Subscription";
 import {Router} from "@angular/router";
-import {MenuService} from "../../../services/menu.service";
+import {MenuService} from "../../services/menu.service";
 
 @Component({
   selector: 'app-categories-admin',

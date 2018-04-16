@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {PubSubService} from "../../../services/pub-sub.service";
-import {CategoriesService} from "../../../services/categories.service";
-import {ArticlesService} from "../../../services/articles.service";
+import {PubSubService} from "../../services/pub-sub.service";
+import {CategoriesService} from "../../services/categories.service";
+import {ArticlesService} from "../../services/articles.service";
 import {fadeTransition} from "../../animations/fade2.animation";
-import {BrandService} from "../../../services/brand.service";
+import {BrandService} from "../../services/brand.service";
 import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuService } from '../../services/menu.service'
+import { MenuService } from '../services/menu.service'
 import { HttpClient } from '@angular/common/http';
 import {Subscription} from "rxjs/Subscription";
-import {PubSubService} from "../../services/pub-sub.service";
-import {CategoriesService} from "../../services/categories.service";
+import {PubSubService} from "../services/pub-sub.service";
+import {CategoriesService} from "../services/categories.service";
 import {Router} from "@angular/router";
 
 @Component({

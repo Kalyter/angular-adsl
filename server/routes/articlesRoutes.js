@@ -1,11 +1,11 @@
-var express = require('express');
-var app = express();
-var ArticlesRoutes = express.Router();
+const express = require('express');
+const app = express();
+const ArticlesRoutes = express.Router();
 
 
 // Require Item model in our routes module
-var Articles = require('../models/articles');
-var Categories = require('../models/categories');
+const Articles = require('../models/articles');
+const Categories = require('../models/categories');
 
 // Defined get data(index or listing) route
 ArticlesRoutes.route('/').get(function (req, res) {
@@ -21,7 +21,7 @@ ArticlesRoutes.route('/').get(function (req, res) {
 });
 
 ArticlesRoutes.route('/add').post(function (req, res) {
-  var articles = new Articles(req.body);
+  let articles = new Articles(req.body);
   articles.save()
     .then(item => {
     res.status(200).json({'coin': 'Coin added successfully'});})
@@ -70,7 +70,7 @@ ArticlesRoutes.route('/update/:id').post(function (req, res) {
 });
 
 ArticlesRoutes.route('/edit/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
   Articles.findById(id, function (err, art) {
     res.json(art);
   });
@@ -78,16 +78,16 @@ ArticlesRoutes.route('/edit/:id').get(function (req, res) {
 
 
 ArticlesRoutes.route('/findbycat/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
   Categories.find({ cat_id: { $in: id } })
     .then(function(data){
 
-      var subcat = [];
+      let subcat = [];
       subcat.push(Articles.find({ cat_id: { $in: id } }));
 
       if(data){
         data.forEach(function (item) {
-          var subcatPromise = Articles.find({ cat_id: { $in: item._id } });
+          let subcatPromise = Articles.find({ cat_id: { $in: item._id } });
           subcat.push(subcatPromise);
         });
       }
@@ -103,7 +103,7 @@ ArticlesRoutes.route('/findbycat/:id').get(function (req, res) {
 });
 
 ArticlesRoutes.route('/findbymenu/').post(function (req, res) {
-  var test = req.body.map(function(o){return o._id;});
+  let test = req.body.map(function(o){return o._id;});
   Articles.find({ cat_id: { $in: test } })
     .exec(function (err, art) {
       if (err) {
@@ -117,7 +117,7 @@ ArticlesRoutes.route('/findbymenu/').post(function (req, res) {
 
 
 ArticlesRoutes.route('/view/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
 
 /*  var cursor = Articles.aggregate(
     [

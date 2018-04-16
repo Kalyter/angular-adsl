@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {BrandService} from "../../../services/brand.service";
-import {PubSubService} from "../../../services/pub-sub.service";
+import {BrandService} from "../../services/brand.service";
+import {PubSubService} from "../../services/pub-sub.service";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 

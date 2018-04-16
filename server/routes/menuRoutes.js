@@ -1,10 +1,10 @@
-var express = require('express');
-var app = express();
-var MenuRoutes = express.Router();
+const express = require('express');
+const app = express();
+const MenuRoutes = express.Router();
 
 
 // Require Item model in our routes module
-var Menu = require('../models/Menu');
+const Menu = require('../models/Menu');
 /*// Defined get data(index or listing) route
 MenuRoutes.route('/test').get(function (req, res) {
 
@@ -65,7 +65,7 @@ MenuRoutes.route('/').get(function (req, res) {
 
 
 MenuRoutes.route('/edit/:id').get(function (req, res) {
-  var id = req.params.id;
+  let id = req.params.id;
   Menu.findById(id, function (err, menu){
     res.json(menu);
   });
@@ -74,7 +74,7 @@ MenuRoutes.route('/edit/:id').get(function (req, res) {
 
 
 MenuRoutes.route('/add').post(function (req, res) {
-  var menu = new Menu(req.body);
+  let menu = new Menu(req.body);
   menu.save()
     .then(item => {
     res.status(200).json({'coin': 'Coin added successfully'});
@@ -87,9 +87,9 @@ MenuRoutes.route('/add').post(function (req, res) {
 
 
 MenuRoutes.route('/uporder').put(function (req, res) {
-  var updates = [];
+  let updates = [];
   req.body.forEach(function (item){
-    var updatePromise = Menu.update({_id: item._id},  {"$set": {"order": item.order }}, { multi: true });
+    let updatePromise = Menu.update({_id: item._id},  {"$set": {"order": item.order }}, { multi: true });
     updates.push(updatePromise);
 });
 

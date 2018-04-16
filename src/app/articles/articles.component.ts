@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
-import {ArticlesService} from "../../services/articles.service";
+import {ArticlesService} from "../services/articles.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {CategoriesService} from "../../services/categories.service";
+import {CategoriesService} from "../services/categories.service";
 import {fadeInAnimation} from "../animations/fade.animation";
 import { ChangeDetectorRef } from "@angular/core";
 import {trigger, group, query, animate, transition, style, animateChild, state} from '@angular/animations';
