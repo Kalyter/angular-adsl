@@ -12,21 +12,30 @@ import {CategoriesAdminAddeditComponent} from "./admin/categories-admin/categori
 import {ViewArticlesComponent} from "./articles/view-articles.component";
 import {ArticlesAdminComponent} from "./admin/articles-admin/articles-admin.component";
 import {ArticlesAdminAddComponent} from "./admin/articles-admin/articles-admin-add.component";
+import { AuthGuard } from './auth/auth.guard';
+import {CallbackComponent} from "./callback.component";
+
 
 // Route Configuration
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: 'admin/home', component: HomeAdminComponent,  data: { animation: 'admin' }},
+  { path: 'admin/home', component: HomeAdminComponent, canActivate: [
+    AuthGuard
+  ], data: { animation: 'admin' }},
   {
     path: 'admin/brand',
-    component: BrandAdminComponent,
+    component: BrandAdminComponent, canActivate: [
+    AuthGuard
+  ],
     children: [
       { path: 'add', component: BrandAdminAddeditComponent,  data: { animation: 'addbrand' } },
       { path: 'edit/:id', component: BrandAdminAddeditComponent,  data: { animation: 'editbrand' } }
     ], data: { animation: 'adminbrand' }},
   {
     path: 'admin/categories',
-    component: CategoriesAdminComponent,
+    component: CategoriesAdminComponent, canActivate: [
+    AuthGuard
+  ],
     children: [
       { path: 'add', component: CategoriesAdminAddeditComponent,  data: { animation: 'addcat' } },
       { path: 'edit/:id', component: CategoriesAdminAddeditComponent,  data: { animation: 'editcat' } }
@@ -34,7 +43,9 @@ export const routes: Routes = [
   },
   {
     path: 'admin/articles',
-    component: ArticlesAdminComponent,
+    component: ArticlesAdminComponent, canActivate: [
+    AuthGuard
+  ],
     children: [
       { path: 'add', component: ArticlesAdminAddComponent,  data: { animation: 'addart' } },
       { path: 'edit/:id', component: ArticlesAdminAddComponent,  data: { animation: 'editart' } }
@@ -42,16 +53,23 @@ export const routes: Routes = [
   },
   {
     path: 'admin/menu',
-    component: MenuAdminComponent,
+    component: MenuAdminComponent, canActivate: [
+    AuthGuard
+  ],
     children: [
       { path: 'add', component: MenuAdminAddeditComponent,  data: { animation: 'addmenu' } },
       { path: 'edit/:id', component: MenuAdminAddeditComponent,  data: { animation: 'editmenu' } }
     ],  data: { animation: 'adminmenu' }
   },
   { path: 'main', component: MainComponent,  data: { animation: 'main' }},
-  { path: 'articles/:for/:id', component: ArticlesComponent,  children: [
-    { path: '../../view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart' } }
+  { path: 'articles/:for/:id', component: ArticlesComponent,
+    children: [
+    { path: 'view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart' } }
   ],  data: { animation: 'articles' }
+  },
+  {
+    path: 'callback',
+    component: CallbackComponent
   }
 ];
 

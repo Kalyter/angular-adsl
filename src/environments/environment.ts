@@ -4,5 +4,12 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth: {
+    clientID: '6mYPjAc5VD9BHHp5Jbrrgf7Z1LwAxylI',
+    domain: 'kalyter.eu.auth0.com', // e.g., you.auth0.com
+    audience: 'https://kalyter.eu.auth0.com/userinfo', // e.g., http://localhost:3001
+    redirect: 'http://localhost:4000/callback',
+    scope: 'openid'
+  }
 };

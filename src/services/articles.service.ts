@@ -35,6 +35,17 @@ export class ArticlesService {
       });
   }
 
+  viewArticle(id) {
+    const uri = '/api/articles/view/' + id;
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
+  }
+
+
   updateArticle(obj, id) {
     const uri = '/api/articles/update/' + id;
     this

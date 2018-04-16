@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   menu:any;
   categories:any;
+  link:any;
 
   constructor(private menuService:MenuService,
               private pubsubService:PubSubService,
@@ -32,7 +33,9 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   getMenus() {
     this.menuService.getMenu()
-      .subscribe(result => this.menu = result);
+      .subscribe(result => {
+        this.menu = result;
+      });
   }
 
   ngOnDestroy() {
@@ -41,11 +44,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   thereIsUnder(idmenu: number, req2: any) {
-
     if (!req2) return [];
-
     if (!idmenu) return [];
-
     var req3 = req2.map(i => i.menu_id);
     let req4 = req3.filter(function(element){return (element==idmenu)});
     return req4.length !== 0;

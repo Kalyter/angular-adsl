@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesService} from "../../services/articles.service";
 import {fadeTransition} from "../animations/fade2.animation";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -10,20 +11,56 @@ import {fadeTransition} from "../animations/fade2.animation";
 
 })
 export class ViewArticlesComponent implements OnInit {
+  idart:any;
+  article: any = {
+    title: String,
+    content: String,
+    categorie_field: Array,
+    brand_field: Array,
+  };
+  categorie: any = {
+    title: String,
+  };
+  brand: any = {
+    title: String,
+  };
+  slideIndex: number = 1;
 
-  articles:any;
-
-  constructor(private articlesService: ArticlesService) { }
+  constructor(private route: ActivatedRoute,
+              private articlesService: ArticlesService) {
+  }
 
   ngOnInit() {
-    this.getArticles();
+
+    this.idart = this.route.snapshot.params['id'];
+
+
+    this.articlesService.viewArticle(this.idart)
+      .subscribe(result => {
+        this.article = (Object.values(result)[0]);
+        this.categorie = this.article.categorie_field.reduce(function(arr, row){
+          return row;
+        });
+        this.brand = this.article.brand_field.reduce(function(arr, row){
+          return row;
+        });
+        this.showDivs(this.slideIndex);
+      });
   }
 
-
-  getArticles() {
-    this.articlesService.getArticles()
-      .subscribe(result => this.articles = result);
+  plusDivs(n) {
+    this.showDivs(this.slideIndex += n);
   }
 
+  showDivs(n) {
+    let i;
+    let x = document.getElementsByClassName("article_img");
+    if (n > x.length) {this.slideIndex = 1}
+    if (n < 1) {this.slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+      (x[i] as HTMLInputElement).style.display = "none";
+    }
+    (x[this.slideIndex-1] as HTMLInputElement).style.display = "block";
+  }
 
 }

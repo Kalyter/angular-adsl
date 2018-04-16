@@ -36,6 +36,9 @@ import {AngularDraggableModule} from "angular2-draggable";
 import {FilterSearchPipe} from "./pipes/filter-search";
 import { CKEditorModule } from 'ng2-ckeditor';
 import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from "@angular/router";
+import {AuthService} from "./auth/auth.service";
+import {CallbackComponent} from "./callback.component";
+import {AuthGuard} from "./auth/auth.guard";
 
 
 
@@ -59,7 +62,8 @@ import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from "@
     HoverContainerComponent,
     ViewArticlesComponent,
     ArticlesAdminComponent,
-    ArticlesAdminAddComponent
+    ArticlesAdminAddComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,7 @@ import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from "@
     })
   ],
   schemas: [ NO_ERRORS_SCHEMA],
-  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService],
+  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard],
   bootstrap: [AppComponent, MenuComponent]
 })
 

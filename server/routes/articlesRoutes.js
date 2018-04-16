@@ -5,6 +5,7 @@ var ArticlesRoutes = express.Router();
 
 // Require Item model in our routes module
 var Articles = require('../models/articles');
+var Categories = require('../models/categories');
 
 // Defined get data(index or listing) route
 ArticlesRoutes.route('/').get(function (req, res) {
@@ -78,16 +79,27 @@ ArticlesRoutes.route('/edit/:id').get(function (req, res) {
 
 ArticlesRoutes.route('/findbycat/:id').get(function (req, res) {
   var id = req.params.id;
-  Articles.find()
-    .where({ cat_id: id })
-    .exec(function (err, art) {
-      if (err) {
-        console.log(err);
+  Categories.find({ cat_id: { $in: id } })
+    .then(function(data){
+
+      var subcat = [];
+      subcat.push(Articles.find({ cat_id: { $in: id } }));
+
+      if(data){
+        data.forEach(function (item) {
+          var subcatPromise = Articles.find({ cat_id: { $in: item._id } });
+          subcat.push(subcatPromise);
+        });
       }
-      else {
-        res.json(art);
-      }
+
+      Promise.all(subcat).then(function (results) {
+        res.json(results.reduce(function (arr, row) {
+          return arr.concat(row);
+        }, []));
+      });
+
     });
+
 });
 
 ArticlesRoutes.route('/findbymenu/').post(function (req, res) {
@@ -101,6 +113,69 @@ ArticlesRoutes.route('/findbymenu/').post(function (req, res) {
         res.json(art);
       }
     });
+});
+
+
+ArticlesRoutes.route('/view/:id').get(function (req, res) {
+  var id = req.params.id;
+
+/*  var cursor = Articles.aggregate(
+    [
+      { "$match": Articles.where({_id: { $in: id }}).cast(Articles) },
+      {
+        "$lookup": {
+          "from": "categories",
+          "localField": "cat_id",
+          "foreignField": "_id",
+          "as": "categorie_field"
+        }
+      },
+      {
+        "$lookup": {
+          "from": "brand",
+          "localField": "brand_id",
+          "foreignField": "_id",
+          "as": "brand_field"
+        }
+      }
+    ]).cursor({ batchSize: 1000 }).exec();
+  cursor.get(function (err, art){
+    if(err){
+      console.log(err);
+    }
+    else {
+      res.json(art);
+    }
+  });*/
+
+  Articles.aggregate(
+    [
+      { "$match": Articles.where({_id: { $in: id }}).cast(Articles) },
+      {
+        "$lookup": {
+          "from": "categories",
+          "localField": "cat_id",
+          "foreignField": "_id",
+          "as": "categorie_field"
+        }
+      },
+      {
+        "$lookup": {
+          "from": "brand",
+          "localField": "brand_id",
+          "foreignField": "_id",
+          "as": "brand_field"
+        }
+      }
+    ]).exec(function (err, art){
+    if(err){
+      console.log(err);
+    }
+    else {
+      res.json(art);
+    }
+  });
+
 });
 
 

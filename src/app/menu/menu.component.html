@@ -12,7 +12,8 @@
 
           <ng-template #thenBlock>
           <li class="nav-item dropdown-m">
-            <a type="button" routerLinkActive="active"  [routerLink]="['/articles', 'menu', m._id]" [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
+            <a  *ngIf="!m.module_link[0]" type="button" routerLinkActive="active"  [routerLink]="['/articles', 'menu', m._id]" [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
+            <a  *ngIf="m.module_link[0]" type="button" routerLinkActive="active"  [routerLink]="[m.module_link[0].link]" [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
 
             <div class="dropdown-content">
               <ng-container *ngFor="let c of categories | Orderby : 'order'; let i=index">
@@ -24,7 +25,8 @@
 
           <ng-template #elseBlock>
           <li class="nav-item">
-            <a class="nav-link py-2" routerLinkActive="active" [routerLink]="['/articles', 'menu', m._id]" [routerLinkActiveOptions]="{ exact: true }">{{m.title}}</a>
+            <a  *ngIf="!m.module_link[0]" type="button" routerLinkActive="active"  [routerLink]="['/articles', 'menu', m._id]" [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
+            <a  *ngIf="m.module_link[0]" type="button" routerLinkActive="active"  [routerLink]="[m.module_link[0].link]" [routerLinkActiveOptions]="{ exact: true }" class="nav-link py-2">{{m.title}}<span class="caret"></span></a>
           </li>
           </ng-template>
 

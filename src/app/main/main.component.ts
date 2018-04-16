@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
   getBrands() {
     this.brandService.getBrand()
       .subscribe(result => this.brand = result);
-     console.log(this.brand.filter(function(item, index){ index > 4 }));
+     // console.log(this.brand.filter(function(item, index){ index > 4 }));
   }
 
 }

@@ -1,3 +1,23 @@
-<div class="central-form">
-  <a class="btn btn-default" routerLink="/articles/">Cancel</a>
+<div class="central-form-article-view">
+  <div class="row" style="margin-right: -20px;margin-left: -20px;">
+
+    <div class="col-lg-6">
+      <div class="article_img" [style.background-image]="'url(assets/img/articles/' + article.img_head + ')'"></div>
+      <ng-container *ngFor="let img_sup of article.img_plus">
+        <div class="article_img" style="display: none" [style.background-image]="'url(assets/img/articles/' + img_sup + ')'"></div>
+      </ng-container>
+      <div class="arrows prev" (click)="plusDivs(-1)"></div>
+      <div class="arrows next" (click)="plusDivs(+1)"></div>
+    </div>
+
+    <div class="col-lg-6" style="padding: 30px;"><a routerLink="../../" class="close-thik"></a>
+      <div>
+        <h5>{{ brand.title }} - {{ article.title }}</h5>
+        <i>{{ categorie.title }}</i>
+      </div><button class="btn btn-secondary waves-light" type="button">Contactez-nous</button>
+      <div [innerHTML]="article.content" class="content-article">
+      </div>
+    </div>
+
+  </div>
 </div>

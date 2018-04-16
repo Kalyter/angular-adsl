@@ -7,18 +7,15 @@ var connection = mongoose.createConnection(config.DB);
 autoIncrement.initialize(connection);
 
 // Define collection and schema for Items
-var Menu = new Schema ({
-  title: {
+var Modules = new Schema ({
+  title:{
     type: String
   },
   link: {
-    type: Number
-  },
-  order: {
-    type: Number
+    type: String
   }
 },{
-  collection: 'menu'
+  collection: 'modules'
 });
-Menu.plugin(autoIncrement.plugin, 'Menu');
-module.exports = mongoose.model('Menu', Menu);
+Modules.plugin(autoIncrement.plugin, 'Modules');
+module.exports = mongoose.model('Modules', Modules);

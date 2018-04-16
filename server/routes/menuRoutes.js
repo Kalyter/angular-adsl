@@ -5,13 +5,54 @@ var MenuRoutes = express.Router();
 
 // Require Item model in our routes module
 var Menu = require('../models/Menu');
+/*// Defined get data(index or listing) route
+MenuRoutes.route('/test').get(function (req, res) {
+
+  var modules = new Modules();
+  modules.title = "Main";
+  modules.link = "/main";
+  modules.save()
+    .then(item => {
+    res.status(200).json({'coin': 'Coin added successfully'});
+})
+.catch(err => {
+    res.status(400).send("unable to save to database");
+});
+});*/
 
 
-
-// Defined get data(index or listing) route
 MenuRoutes.route('/').get(function (req, res) {
-  Menu.find()
-    .sort('order')
+
+/*  var cursor = Menu.aggregate(
+    [
+      {
+        "$lookup": {
+          "from": "modules",
+          "localField": "link",
+          "foreignField": "_id",
+          "as": "module_link"
+        }
+      }
+    ]).cursor({ batchSize: 1000 }).exec();
+  cursor.get(function (err, menus){
+    if(err){
+      console.log(err);
+    }
+    else {
+      res.json(menus);
+    }
+  });*/
+  Menu.aggregate(
+    [
+      {
+        "$lookup": {
+          "from": "modules",
+          "localField": "link",
+          "foreignField": "_id",
+          "as": "module_link"
+        }
+      }
+    ])
     .exec(function (err, menus){
     if(err){
       console.log(err);

@@ -31,6 +31,7 @@ import {trigger, group, query, animate, transition, style, animateChild, state} 
 export class ArticlesComponent implements OnInit, OnDestroy {
   articles:any;
   categories:any;
+  cats:any;
   menu:any;
   id:number;
   param:any;
@@ -60,6 +61,15 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
 
     });
+  }
+
+  thereIsUnder(idmenu: number, req2: any) {
+    if(!req2) return [];
+    if(!idmenu) return req2;
+
+    var req3 = req2.map(i => i.cat_id);
+    let req4 = req3.filter(function(element){return (element==idmenu)});
+    return req4.length !== 0;
   }
 
   ngOnDestroy() {
@@ -93,7 +103,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   }
 
   onLoad(){
-
+    this.categoriesService.getCategories().subscribe( result => {this.cats = result;})
     let idvar = this.route.snapshot.params['id'];
     if(this.route.snapshot.params['for'] == "cat")
     {
@@ -121,7 +131,6 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       });
 
   }
-
 
 
 }

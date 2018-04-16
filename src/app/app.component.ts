@@ -1,7 +1,5 @@
 import {Component, HostBinding} from '@angular/core';
 import {fadeInAnimation} from "./animations/fade.animation";
-import {RouterOutlet} from "@angular/router";
-
 
 @Component({
   selector: 'app-root',

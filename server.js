@@ -11,18 +11,44 @@ const express = require('express'),
   FilesRoutes = require('./server/routes/filesRoutes'),
   ArticlesRoutes = require ('./server/routes/articlesRoutes');
 
+//jwks_auth
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
+
 // connection
 mongoose.Promise = global.Promise;
-mongoose.connect(config.DB).then(
-  () => {console.log('Database is connected') },
-err => { console.log('Can not connect to the database'+ err)}
+mongoose.connect(config.DB)
+  .then(function(ok, err){
+    if(ok)
+    {
+      console.log("Connexion réussie");
+    }
+    else {
+      console.log(err);
+    }
+  }
 );
+
+//check auth
+const authCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: "https://kalyter.eu.auth0.com/.well-known/jwks.json"
+  }),
+  audience: 'http://localhost:4000',
+  issuer: "https://kalyter.eu.auth0.com/",
+  algorithms: ['RS256']
+});
+
+
 
 //init app
 const app = express();
 // Parsers
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, 'dist')));
