@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { Orderby } from './pipes/orderby';
-import { MenuService } from './services/menu.service';
 import { ArticlesComponent } from './articles/articles.component';
 import { MainComponent } from './main/main.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,10 +34,13 @@ import {ArticlesAdminAddComponent} from "./admin/articles-admin/articles-admin-a
 import {AngularDraggableModule} from "angular2-draggable";
 import {FilterSearchPipe} from "./pipes/filter-search";
 import { CKEditorModule } from 'ng2-ckeditor';
-import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from "@angular/router";
 import {AuthService} from "./auth/auth.service";
 import {CallbackComponent} from "./callback.component";
 import {AuthGuard} from "./auth/auth.guard";
+import {VideosService} from "./services/videos.service";
+import {MenuService} from "./services/menu.service";
+import { VideosComponent } from './videos/videos.component';
+import {ViewVideosComponent} from "./videos/view-videos.component";
 
 
 
@@ -63,7 +65,9 @@ import {AuthGuard} from "./auth/auth.guard";
     ViewArticlesComponent,
     ArticlesAdminComponent,
     ArticlesAdminAddComponent,
-    CallbackComponent
+    CallbackComponent,
+    VideosComponent,
+    ViewVideosComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,7 @@ import {AuthGuard} from "./auth/auth.guard";
     })
   ],
   schemas: [ NO_ERRORS_SCHEMA],
-  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard],
+  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard, VideosService],
   bootstrap: [AppComponent, MenuComponent]
 })
 

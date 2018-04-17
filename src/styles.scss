@@ -74,6 +74,16 @@ body {
   line-height: 40px;
 }
 
+.box-content-video {
+  background-color: white;
+  bottom: 0;
+  width: 100%;
+  line-height: 30px;
+  height: auto;
+  padding: 10px;
+}
+
+
 .ombre {
   text-shadow: black 0.1em 0.1em 0.2em;
 }
@@ -84,6 +94,11 @@ body {
 
 .leadat {
   font-size: 2.5rem;
+}
+
+.lead{
+  white-space: initial !important;
+  font-size: 0.9rem !important;
 }
 
 .marque {

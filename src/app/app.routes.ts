@@ -14,6 +14,8 @@ import {ArticlesAdminComponent} from "./admin/articles-admin/articles-admin.comp
 import {ArticlesAdminAddComponent} from "./admin/articles-admin/articles-admin-add.component";
 import { AuthGuard } from './auth/auth.guard';
 import {CallbackComponent} from "./callback.component";
+import {VideosComponent} from "./videos/videos.component";
+import {ViewVideosComponent} from "./videos/view-videos.component";
 
 
 // Route Configuration
@@ -62,6 +64,10 @@ export const routes: Routes = [
     ],  data: { animation: 'adminmenu' }
   },
   { path: 'main', component: MainComponent,  data: { animation: 'main' }},
+  { path: 'videos', component: VideosComponent,
+    children: [
+      { path: 'view/:id', component: ViewVideosComponent,  data: { animation: 'viewvid' } }
+    ],  data: { animation: 'videos' }},
   { path: 'articles/:for/:id', component: ArticlesComponent,
     children: [
     { path: 'view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart' } }

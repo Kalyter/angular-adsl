@@ -9,6 +9,7 @@ const express = require('express'),
   BrandRoutes = require('./server/routes/brandRoutes'),
   CategoriesRoutes = require('./server/routes/categoriesRoutes'),
   FilesRoutes = require('./server/routes/filesRoutes'),
+  VideosRoutes = require('./server/routes/videosRoutes'),
   ArticlesRoutes = require ('./server/routes/articlesRoutes');
 
 //jwks_auth
@@ -60,6 +61,7 @@ app.use('/api/brand', BrandRoutes);
 app.use('/api/categories', CategoriesRoutes);
 app.use('/api/articles', ArticlesRoutes);
 app.use('/api/files', FilesRoutes);
+app.use('/api/videos', VideosRoutes);
 
 app.use(function(req, res, next) {
 //set headers to allow cross origin request.

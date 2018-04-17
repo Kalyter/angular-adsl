@@ -50,6 +50,7 @@
     "ng2-dnd": "^5.0.2",
     "nodemon": "^1.17.1",
     "popper.js": "^1.14.3",
+    "request": "^2.85.0",
     "rxjs": "^5.5.9",
     "typescript": "2.6.2",
     "web-animations-js": "^2.3.1",
