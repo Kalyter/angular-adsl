@@ -1,3 +1,6 @@
+<div class="cat_bar">
+ <h1 style="line-height: 3rem;"><span class="fa fa-angle-double-down mr-3 fa-lg"></span><b style="font-variant: small-caps;">Vidéos</b></h1>
+</div><hr>
 <div class="row" >
 
   <ng-container *ngFor="let video of videos">
@@ -15,7 +18,7 @@
           <div class="box-content"><b>{{ video.title }}</b></div>
 
         </div>
-        <ng-container overlay><a [routerLink]="['view', video._id]" class="btn btn-light-blue waves-light"> Play.</a>.
+        <ng-container overlay><a [routerLink]="['view', video._id]"> <span style="font-size: 115px; color: rgba(255, 255, 255, 0.70);" class="fa fa-play-circle"></span></a>.
         </ng-container>
       </hover-container>
     </div>

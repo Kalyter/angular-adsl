@@ -1,0 +1,49 @@
+<app-bar-menu></app-bar-menu>
+<br/>
+<h1>Vidéos</h1><br/><br/>
+<a routerLink="add" class="btn btn-primary">Ajouter une vidéo</a>
+<br/><br/>
+
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Listes des vidéos
+  </div>
+  <div class="card-body">
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th width="70%">Title</th>
+          <th width="30%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let v of videos">
+          <tr>
+            <td>{{v.title}}</td>
+            <td>
+              <a mwlConfirmationPopover
+                 [popoverTitle]="popoverTitle"
+                 [popoverMessage]="popoverMessage"
+                 placement="left"
+                 (confirm)="deleteVideo(v._id)"
+                 (cancel)="cancelClicked = true" class="btn btn-danger btn-sm text-white float-right ml-3">Delete</a>
+              <a [routerLink]="['edit', v._id]" class="btn btn-info btn-sm text-white float-right"> Edit</a>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+
+  </div>
+</div>
+<div>
+
+
+
+</div>
+<div class="view-side-form">
+
+  <router-outlet></router-outlet>
+
+</div>

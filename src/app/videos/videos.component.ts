@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {VideosService} from "../services/videos.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-videos',
@@ -9,10 +10,11 @@ import {VideosService} from "../services/videos.service";
 export class VideosComponent implements OnInit {
   videos: any;
 
-  constructor(private videosService: VideosService,) { }
+  constructor(private videosService: VideosService, private titleService: Title) { }
 
   ngOnInit() {
     this.getVideos();
+    this.titleService.setTitle( "Assistance Dépannage Service Labo - Vidéos" );
   }
 
   getVideos(){

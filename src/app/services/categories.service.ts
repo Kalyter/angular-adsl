@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import 'rxjs/add/operator/map';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {AuthService} from "../auth/auth.service";
 
 @Injectable()
 export class CategoriesService {
   private messageSource = new BehaviorSubject<number>(0);
   currentMessage = this.messageSource.asObservable();
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private authService: AuthService) {
   }
 
   getCategories() {
@@ -25,7 +27,9 @@ export class CategoriesService {
   addCategorie(cat) {
     const uri = '/api/categories/add';
     const obj = cat;
-    this._http.post(uri, obj)
+    this._http.post(uri, obj, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    })
       .subscribe(res => console.log('Done'));
   }
 
@@ -37,7 +41,9 @@ export class CategoriesService {
     const uri = '/api/categories/edit/' + id;
     return this
       ._http
-      .get(uri)
+      .get(uri, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .map(res => {
         return res;
       });
@@ -58,7 +64,9 @@ export class CategoriesService {
 
     this
       ._http
-      .post(uri, obj)
+      .post(uri, obj, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .subscribe(res => console.log('Done'));
   }
 
@@ -67,7 +75,9 @@ export class CategoriesService {
 
     return this
       ._http
-      .get(uri)
+      .get(uri, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .map(res => {
         return res;
       });
@@ -77,7 +87,9 @@ export class CategoriesService {
     const uri = '/api/categories/uporder/';
     this
       ._http
-      .put(uri, obj)
+      .put(uri, obj, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .subscribe(res => console.log('Done'));
   }
 

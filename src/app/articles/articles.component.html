@@ -6,10 +6,10 @@
     <div *ngIf="cat.cat_id; then thenBlock else elseBlock">    </div>
         <ng-template #thenBlock>
           <ng-container *ngFor="let cat_m of categories;">
-            <ng-container *ngIf="cat.cat_id==cat_m._id;"><h5 style="line-height: 3rem;"><span class="fa fa-angle-double-down mr-3 fa-lg"></span><b>{{cat_m.title}}</b> - <i>{{ cat.title }}</i></h5></ng-container>
+            <ng-container *ngIf="cat.cat_id==cat_m._id;"><h1 style="line-height: 3rem;font-size: 1.55rem;"><span class="fa fa-angle-double-down mr-3 fa-lg"></span><b style="font-variant: small-caps;">{{cat_m.title}}</b> - <i style="font-size: 1.25rem;">{{ cat.title }}</i></h1></ng-container>
           </ng-container>
         </ng-template>
-    <ng-template #elseBlock><h5 style="line-height: 3rem;"><span class="fa fa-angle-double-down mr-3 fa-lg"></span><b>{{ cat.title }}</b></h5></ng-template>
+    <ng-template #elseBlock><h1 style="line-height: 3rem;font-size: 1.55rem;"><span class="fa fa-angle-double-down mr-3 fa-lg"></span><b style="font-variant: small-caps;">{{ cat.title }}</b></h1></ng-template>
   </div><hr>
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BrandService} from "../services/brand.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   moduleId: module.id.toString(),
@@ -10,10 +11,11 @@ export class MainComponent implements OnInit {
 
   brand:any;
 
-  constructor(private brandService:BrandService) { }
+  constructor(private brandService:BrandService, private titleService: Title) { }
 
   ngOnInit() {
     this.getBrands();
+    this.titleService.setTitle( "Assistance Dépannage Service Labo - Home" );
   }
 
   getBrands() {

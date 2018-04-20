@@ -41,6 +41,10 @@ import {VideosService} from "./services/videos.service";
 import {MenuService} from "./services/menu.service";
 import { VideosComponent } from './videos/videos.component';
 import {ViewVideosComponent} from "./videos/view-videos.component";
+import { VideosAdminComponent } from './admin/videos-admin/videos-admin.component';
+import {VideosAdminAddComponent} from "./admin/videos-admin/videos-admin-add.component";
+import {VideosAdminEditComponent} from "./admin/videos-admin/videos-admin-edit.component";
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -67,10 +71,14 @@ import {ViewVideosComponent} from "./videos/view-videos.component";
     ArticlesAdminAddComponent,
     CallbackComponent,
     VideosComponent,
-    ViewVideosComponent
+    ViewVideosComponent,
+    VideosAdminComponent,
+    VideosAdminAddComponent,
+    VideosAdminEditComponent,
+    FooterComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'adsl'}),
     FormsModule,
     routing,
     [CKEditorModule],
@@ -87,7 +95,7 @@ import {ViewVideosComponent} from "./videos/view-videos.component";
   ],
   schemas: [ NO_ERRORS_SCHEMA],
   providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard, VideosService],
-  bootstrap: [AppComponent, MenuComponent]
+  bootstrap: [AppComponent, MenuComponent, FooterComponent]
 })
 
 export class AppModule { }

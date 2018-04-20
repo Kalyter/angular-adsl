@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {AuthService} from "../auth/auth.service";
 
 @Injectable()
 export class MenuService {
@@ -9,13 +10,12 @@ export class MenuService {
   private messageSource = new BehaviorSubject<number>(0);
   currentMessage = this.messageSource.asObservable();
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private authService: AuthService) {
   }
 
   getMenu() {
     const uri = '/api/menu/';
-
-
     return this
       ._http
       .get(uri)
@@ -29,12 +29,13 @@ export class MenuService {
     this.messageSource.next(message)
   }
 
-
   editMenu(id) {
     const uri = '/api/menu/edit/' + id;
     return this
       ._http
-      .get(uri)
+      .get(uri, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .map(res => {
         return res;
       });
@@ -43,7 +44,9 @@ export class MenuService {
   addMenu(menu) {
     const uri = '/api/menu/add';
     const obj = menu;
-    this._http.post(uri, obj)
+    this._http.post(uri, obj, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    })
       .subscribe(res => console.log('Done'));
   }
 
@@ -52,7 +55,9 @@ export class MenuService {
 
     this
       ._http
-      .post(uri, obj)
+      .post(uri, obj, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .subscribe(res => console.log('Done'));
   }
 
@@ -61,7 +66,9 @@ export class MenuService {
 
     return this
       ._http
-      .get(uri)
+      .get(uri, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .map(res => {
         return res;
       });
@@ -72,7 +79,9 @@ export class MenuService {
 
     this
       ._http
-      .put(uri, obj)
+      .put(uri, obj, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
       .subscribe(res => console.log('Done'));
   }
 

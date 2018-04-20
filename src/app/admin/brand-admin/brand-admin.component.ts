@@ -9,7 +9,7 @@ import {Subscription} from "rxjs/Subscription";
   templateUrl: './brand-admin.component.html',
   styleUrls: ['./brand-admin.component.css']
 })
-export class BrandAdminComponent implements OnInit {
+export class BrandAdminComponent implements OnInit, OnDestroy {
 
   brand:any;
   subscription: Subscription;

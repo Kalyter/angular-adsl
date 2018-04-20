@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {fadeTransition} from "../animations/fade2.animation";
 import {ActivatedRoute} from "@angular/router";
 import {VideosService} from "../services/videos.service";
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, Title} from "@angular/platform-browser";
 
 @Component({
   templateUrl: './view-videos.component.html',
@@ -21,7 +21,8 @@ export class ViewVideosComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private videosService: VideosService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private titleService: Title) {
   }
 
   ngOnInit() {
@@ -31,14 +32,13 @@ export class ViewVideosComponent implements OnInit {
     this.videosService.viewVideo(this.idvid)
       .subscribe(result => {
         this.video = result;
-
+        this.titleService.setTitle( "Assistance Dépannage Service Labo - Vidéos -" + this.video.title );
         let yurl = 'https://www.youtube.com/embed/' + this.video.youtube_id;
         this.yurls =
           this.sanitizer.bypassSecurityTrustResourceUrl(yurl);
 
       });
   }
-
 
 
 }

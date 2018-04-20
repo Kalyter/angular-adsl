@@ -5,6 +5,7 @@ import {CategoriesService} from "../services/categories.service";
 import {fadeInAnimation} from "../animations/fade.animation";
 import { ChangeDetectorRef } from "@angular/core";
 import {trigger, group, query, animate, transition, style, animateChild, state} from '@angular/animations';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   templateUrl: './articles.component.html',
@@ -44,6 +45,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private categoriesService:CategoriesService,
               private router: Router,
+              private titleService: Title,
               changeDetectorRef: ChangeDetectorRef) {
     this.boxState = "active";
     console.log(this.boxState);
@@ -58,6 +60,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       this.param = params['for'];
       this.runChangeDetection = true;
       this.initialiseState();
+      this.titleService.setTitle( "Assistance Dépannage Service Labo - Articles" );
 
 
     });
@@ -117,7 +120,9 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
   getArticlesForCat(id) {
     this.articlesService.getArticlesCat(id)
-      .subscribe(result => {this.articles = result; });
+      .subscribe(result => {
+        this.articles = result;
+      });
   }
 
   getArticlesForMenu(id) {
@@ -126,7 +131,9 @@ export class ArticlesComponent implements OnInit, OnDestroy {
         this.categories = result;
 
         this.articlesService.getArticlesMenu(this.categories)
-          .subscribe(result => {this.articles = result; });
+          .subscribe(result => {
+            this.articles = result;
+          });
 
       });
 

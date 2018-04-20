@@ -1,6 +1,7 @@
 import {Component, HostBinding} from '@angular/core';
 import {fadeInAnimation} from "./animations/fade.animation";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,17 +20,7 @@ export class AppComponent {
     return outlet.activatedRouteData.animation
   }
 
-
 }
 
-/*
-prepareRouteTransition(outlet: RouterOutlet): string | null {
-  try {
-    return outlet.activatedRoute.paramMap. || '';
-  } catch(e) {
-    return '';
-  }
-}
-*/
 
 

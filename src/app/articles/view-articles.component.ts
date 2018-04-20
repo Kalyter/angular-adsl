@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ArticlesService} from "../services/articles.service";
 import {fadeTransition} from "../animations/fade2.animation";
 import {ActivatedRoute} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class ViewArticlesComponent implements OnInit {
   slideIndex: number = 1;
 
   constructor(private route: ActivatedRoute,
-              private articlesService: ArticlesService) {
+              private articlesService: ArticlesService,
+              private titleService: Title) {
   }
 
   ngOnInit() {
@@ -45,6 +47,7 @@ export class ViewArticlesComponent implements OnInit {
           return row;
         });
         this.showDivs(this.slideIndex);
+        this.titleService.setTitle( "Assistance Dépannage Service Labo - Articles - " + this.article.title );
       });
   }
 
