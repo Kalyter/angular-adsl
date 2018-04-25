@@ -1,5 +1,6 @@
 import {Component, HostBinding} from '@angular/core';
 import {fadeInAnimation} from "./animations/fade.animation";
+import {AuthService} from "./auth/auth.service";
 
 
 @Component({
@@ -13,7 +14,7 @@ import {fadeInAnimation} from "./animations/fade.animation";
 export class AppComponent {
   @HostBinding('@fadeInAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
-  constructor() { }
+  constructor(public auth: AuthService) { auth.handleAuthentication(); }
 
   getRouteAnimation(outlet) {
     //console.log(outlet.activatedRouteData);

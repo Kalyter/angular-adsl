@@ -15,7 +15,7 @@ export class AuthService {
     scope: environment.auth.scope
   });
   // Store authentication data
-  accessToken: string;
+  accessToken = localStorage.getItem('access_token');
 
   constructor(private router: Router) {
     this.getAccessToken();

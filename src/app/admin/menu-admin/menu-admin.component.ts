@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   templateUrl: './menu-admin.component.html',
   styleUrls: ['./menu-admin.component.css']
 })
-export class MenuAdminComponent implements OnInit {
+export class MenuAdminComponent implements OnInit, OnDestroy {
 
   public popoverTitle: string = 'Confirmation';
   public popoverMessage: string = 'Are you sure you want to delete this menu ?';

@@ -1,0 +1,31 @@
+<app-bar-menu></app-bar-menu>
+<br/>
+<h1>Gallery</h1><br/><br/>
+<a routerLink="add" class="btn btn-primary">Ajouter un album</a><br/><br/>
+
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Gallery
+  </div>
+  <div class="card-body">
+    <ul class="list-group" dnd-sortable-container [sortableData]="albums">
+      <li style="line-height: 2em;" *ngFor="let a of albums;  let i = index" [dragData]="albums" class="list-group-item"
+          dnd-sortable [sortableIndex]="i"  (onDropSuccess)="OrderAlbums(i, $event)">
+        <small>Position : <b>{{a.order}}</b></small><br/>
+        <small>Nom de l'album : </small>
+        <form [id]="a._id+'form'" style="display: none;" (submit)="saveTitle($event, a)" class="form-title">
+          <input type="text" [value]="a.title" [(ngModel)]="a.title" name="title" class="form-control title-cat-input">
+          <button type="submit" class="btn btn-primary btn-sm">Save</button>
+        </form>
+        <div [id]="a._id+'div'" (click)="changeTitle($event, a._id)" class="title-cat-mod">{{a.title}} <i class="fa fa-pencil-square-o" aria-hidden="true"></i></div><br/>
+        <small>Nombres d'images : </small> {{ a.pictures.length || '0' }}
+
+        <a  class="btn btn-danger text-white float-right ml-3">Delete</a>
+        <a [routerLink]="['/', a._id]" class="btn btn-info text-white float-right"> Edit</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="view-side-form">
+  <router-outlet></router-outlet>
+</div>

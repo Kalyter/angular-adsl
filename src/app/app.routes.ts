@@ -19,6 +19,8 @@ import {ViewVideosComponent} from "./videos/view-videos.component";
 import {VideosAdminComponent} from "./admin/videos-admin/videos-admin.component";
 import {VideosAdminAddComponent} from "./admin/videos-admin/videos-admin-add.component";
 import {VideosAdminEditComponent} from "./admin/videos-admin/videos-admin-edit.component";
+import {AlbumsAdminComponent} from "./admin/gallery-admin/albums-admin/albums-admin.component";
+import {PicturesAdminComponent} from "./admin/gallery-admin/pictures-admin/pictures-admin.component";
 
 
 // Route Configuration
@@ -76,6 +78,8 @@ export const routes: Routes = [
       { path: 'edit/:id', component: MenuAdminAddeditComponent,  data: { animation: 'editmenu' } }
     ],  data: { animation: 'adminmenu' }
   },
+  { path: 'admin/gallery', component: AlbumsAdminComponent,  data: { animation: 'admingal', title: 'Assistance Dépannage Labo - Gallery' }},
+  { path: 'admin/gallery/:id', component: PicturesAdminComponent,  data: { animation: 'adminpic'}},
   { path: 'main', component: MainComponent,  data: { animation: 'main', title: 'Assistance Dépannage Labo - Home' }},
   { path: 'videos', component: VideosComponent,
     children: [

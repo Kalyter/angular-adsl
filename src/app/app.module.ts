@@ -45,6 +45,9 @@ import { VideosAdminComponent } from './admin/videos-admin/videos-admin.componen
 import {VideosAdminAddComponent} from "./admin/videos-admin/videos-admin-add.component";
 import {VideosAdminEditComponent} from "./admin/videos-admin/videos-admin-edit.component";
 import { FooterComponent } from './footer/footer.component';
+import { AlbumsAdminComponent } from './admin/gallery-admin/albums-admin/albums-admin.component';
+import {GalleryService} from "./services/gallery.service";
+import { PicturesAdminComponent } from './admin/gallery-admin/pictures-admin/pictures-admin.component';
 
 
 
@@ -75,7 +78,9 @@ import { FooterComponent } from './footer/footer.component';
     VideosAdminComponent,
     VideosAdminAddComponent,
     VideosAdminEditComponent,
-    FooterComponent
+    FooterComponent,
+    AlbumsAdminComponent,
+    PicturesAdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'adsl'}),
@@ -94,7 +99,7 @@ import { FooterComponent } from './footer/footer.component';
     })
   ],
   schemas: [ NO_ERRORS_SCHEMA],
-  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard, VideosService],
+  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard, VideosService, GalleryService],
   bootstrap: [AppComponent, MenuComponent, FooterComponent]
 })
 

@@ -9,12 +9,14 @@ const express = require('express'),
   BrandRoutes = require('./server/routes/brandRoutes'),
   CategoriesRoutes = require('./server/routes/categoriesRoutes'),
   FilesRoutes = require('./server/routes/filesRoutes'),
+  GalleryRoutes = require('./server/routes/galleryRoutes'),
   VideosAdminRoutes = require('./server/routes/admin/videosAdminRoutes'),
   VideosRoutes = require('./server/routes/videosRoutes'),
   ArticlesAdminRoutes = require ('./server/routes/admin/articlesAdminRoutes'),
   BrandAdminRoutes = require('./server/routes/admin/brandAdminRoutes'),
   CategoriesAdminRoutes = require('./server/routes/admin/categoriesAdminRoutes'),
   MenuAdminRoutes = require('./server/routes/admin/menuAdminRoutes'),
+  AlbumsAdminRoutes = require('./server/routes/admin/albumsAdminRoutes'),
   FilesAdminRoutes = require('./server/routes/admin/filesAdminRoutes'),
   ArticlesRoutes = require ('./server/routes/articlesRoutes');
 
@@ -70,11 +72,13 @@ app.use('/api/categories', CategoriesRoutes);
 app.use('/api/articles', ArticlesRoutes);
 app.use('/api/files', FilesRoutes);
 app.use('/api/videos', VideosRoutes);
+app.use('/api/gallery', GalleryRoutes);
 app.use('/api/admin/articles', authCheck, ArticlesAdminRoutes);
 app.use('/api/admin/files', authCheck, FilesAdminRoutes);
 app.use('/api/admin/brand', authCheck,BrandAdminRoutes);
 app.use('/api/admin/categories', authCheck, CategoriesAdminRoutes);
-app.use('/api/admin/menu', MenuAdminRoutes);
+app.use('/api/admin/menu', authCheck, MenuAdminRoutes);
+app.use('/api/admin/albums', authCheck, AlbumsAdminRoutes);
 app.use('/api/admin/videos', authCheck, VideosAdminRoutes);
 
 app.use(function(req, res, next) {

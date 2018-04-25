@@ -25,7 +25,7 @@ export class CategoriesService {
   }
 
   addCategorie(cat) {
-    const uri = '/api/categories/add';
+    const uri = '/api/admin/categories/add';
     const obj = cat;
     this._http.post(uri, obj, {
       headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
@@ -38,7 +38,7 @@ export class CategoriesService {
   }
 
   editCategorie(id) {
-    const uri = '/api/categories/edit/' + id;
+    const uri = '/api/admin/categories/edit/' + id;
     return this
       ._http
       .get(uri, {
@@ -60,7 +60,7 @@ export class CategoriesService {
   }
 
   updateCategorie(obj, id) {
-    const uri = '/api/categories/update/' + id;
+    const uri = '/api/admin/categories/update/' + id;
 
     this
       ._http
@@ -71,7 +71,7 @@ export class CategoriesService {
   }
 
   deleteCategorie(id) {
-    const uri = '/api/categories/delete/' + id;
+    const uri = '/api/admin/categories/delete/' + id;
 
     return this
       ._http
@@ -84,7 +84,7 @@ export class CategoriesService {
   }
 
   updateOrder(obj) {
-    const uri = '/api/categories/uporder/';
+    const uri = '/api/admin/categories/uporder/';
     this
       ._http
       .put(uri, obj, {
