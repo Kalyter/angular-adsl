@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {VideosService} from "../services/videos.service";
 import {Title} from "@angular/platform-browser";
+import {ConfigService} from "../services/config.service";
 
 @Component({
   selector: 'app-videos',
@@ -9,12 +10,20 @@ import {Title} from "@angular/platform-browser";
 })
 export class VideosComponent implements OnInit {
   videos: any;
+  config:any = {
+    title: String
+  };
 
-  constructor(private videosService: VideosService, private titleService: Title) { }
+  constructor(private videosService: VideosService,
+              private titleService: Title,
+              private configService:ConfigService) { }
 
   ngOnInit() {
     this.getVideos();
-    this.titleService.setTitle( "Assistance Dépannage Service Labo - Vidéos" );
+    this.configService.currentConfig.subscribe(message => {
+      this.config = message;
+      this.titleService.setTitle(this.config.title+" - Vidéos");
+    });
   }
 
   getVideos(){

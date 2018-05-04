@@ -1,31 +1,21 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {AuthService} from "../auth/auth.service";
 
 @Injectable()
 export class GalleryService {
 
-  private messageSource = new BehaviorSubject<number>(0);
-  currentMessage = this.messageSource.asObservable();
-
   constructor(private _http: HttpClient,
               private authService: AuthService) {
   }
 
-  changeOrder(message: number) {
-    this.messageSource.next(message)
-  }
-
   getAlbums() {
-    console.log(this.authService.accessToken);
     const uri = '/api/gallery/';
     return this
       ._http
       .get(uri)
       .map(res => {
-
         return res;
       });
   }
@@ -37,6 +27,14 @@ export class GalleryService {
       .put(uri, obj, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
       })
+      .subscribe(res => console.log('Done'));
+  }
+
+  addAlbum(obj) {
+    const uri = '/api/admin/albums/add';
+    this._http.post(uri, obj, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    })
       .subscribe(res => console.log('Done'));
   }
 
@@ -57,6 +55,63 @@ export class GalleryService {
       .get(uri, {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('access_token'))
       })
+      .map(res => {
+        return res;
+      });
+  }
+
+  deleteAlbum(id) {
+    const uri = '/api/admin/albums/delete/' + id;
+
+    return this
+      ._http
+      .get(uri, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
+      .map(res => {
+        return res;
+      });
+  }
+
+  updatePicture(obj) {
+    const uri = '/api/admin/pictures/update/';
+    this
+      ._http
+      .put(uri, obj, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
+      .subscribe(res => console.log('Done'));
+  }
+
+  uploadImages(id, obj) {
+    const uri = '/api/admin/pictures/upload/' + id;
+    return this._http.post(uri, obj, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    })
+      .toPromise()
+      .catch(reason => {
+        console.log(reason);
+      });
+  }
+
+  deletePicture(id) {
+    const uri = '/api/admin/pictures/delete/' + id;
+
+    return this
+      ._http
+      .get(uri, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
+      .map(res => {
+        return res;
+      });
+  }
+
+  viewPicture(id) {
+    const uri = '/api/gallery/view/' + id;
+    return this
+      ._http
+      .get(uri)
       .map(res => {
         return res;
       });

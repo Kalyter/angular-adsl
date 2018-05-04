@@ -24,6 +24,9 @@ export class HoverContainerComponent {
 
   @HostListener('mouseenter', ['$event'])
   @HostListener('mouseleave', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  @HostListener('touchend', ['$event'])
+
   onHover(event: MouseEvent) {
     const direction = event.type === 'mouseenter' ? 'in' : 'out';
     const host = event.target as HTMLElement;

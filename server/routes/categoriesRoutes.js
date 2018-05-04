@@ -19,16 +19,31 @@ CategoriesRoutes.route('/').get(function (req, res) {
     });
 });
 
-CategoriesRoutes.route('/getmenu/:id').get(function (req, res) {
-  let id = req.params.id;
+CategoriesRoutes.route('/sous').get(function (req, res) {
   Categories.find()
-    .where({ menu_id: id })
-    .exec(function (err, art) {
+    .where({ cat_id: { $gt: 0 } })
+    .sort('order')
+    .exec(function (err, cat) {
       if (err) {
         console.log(err);
       }
       else {
-        res.json(art);
+        res.json(cat);
+      }
+    });
+});
+
+
+CategoriesRoutes.route('/getmenu/:id').get(function (req, res) {
+  let id = req.params.id;
+  Categories.find()
+    .where({ menu_id: id })
+    .exec(function (err, cat) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.json(cat);
       }
     });
 });

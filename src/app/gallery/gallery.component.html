@@ -1,0 +1,28 @@
+
+<ng-container *ngFor="let album of albums">
+<div class="cat_bar">
+  <h1 style="line-height: 3rem;"><span class="fa fa-angle-double-down mr-3 fa-lg"></span><b style="font-variant: small-caps;">{{ album.title }}</b></h1>
+</div><hr>
+  <div class="polaroid-images">
+    <div class="row" >
+
+  <ng-container *ngFor="let a of album.pictures">
+
+    <div class="col-lg-3">
+      <a [routerLink]="['view', a._id]" class="pic-link main" disabled="disabled" [title]="a.title">
+        <div style="background-color: #f1f1f1">
+          <img [src]="'assets/img/gallery/'+a.link" height="200" [alt]="a.title"/>
+        </div>
+        <div class="title-pic">{{ a.title }}</div>
+      </a>
+    </div>
+
+  </ng-container>
+    </div>
+  </div>
+
+<div class="view-side-form">
+  <router-outlet #o="outlet"></router-outlet>
+</div>
+
+</ng-container>

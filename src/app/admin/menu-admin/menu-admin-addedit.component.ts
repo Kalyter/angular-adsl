@@ -17,6 +17,7 @@ export class MenuAdminAddeditComponent implements OnInit {
   menu: any = {};
   count: number = 0;
   message: number;
+  modules:any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -35,14 +36,26 @@ export class MenuAdminAddeditComponent implements OnInit {
     if (menuId) {
       this.title = 'Edit Menu';
       this.menuService.editMenu(menuId)
-        .subscribe(result => this.menu = result);
+        .subscribe(result => {
+          this.menu = result;
+          if(this.menu.link === 0){
+            this.menu.link = 4;
+          }
+        });
     }
+
+    this.menuService.getModules()
+      .subscribe(result => this.modules = result);
 
     // still last order check
      if(this.message){
        this.count = this.message;
      }
 
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 
   // add/edit menu
@@ -54,7 +67,9 @@ export class MenuAdminAddeditComponent implements OnInit {
       this.menuService.addMenu(this.menu);
     }
     else {
-      console.log(this.menu);
+      if(this.menu.link === 4){
+        this.menu.link = 0;
+      }
       this.menuService.updateMenu(this.menu, this.menu._id);
     }
 

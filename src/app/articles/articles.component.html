@@ -1,6 +1,6 @@
 <div [@boxAnimation]="boxState">
 
-<ng-container *ngFor="let cat of categories;">
+<ng-container *ngFor="let cat of categories | Orderby: 'order';">
 <div *ngIf="thereIsUnder(cat._id, articles)" >
   <div class="cat_bar">
     <div *ngIf="cat.cat_id; then thenBlock else elseBlock">    </div>

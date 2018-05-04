@@ -3,6 +3,7 @@ const GalleryRoutes = express.Router();
 
 // Require Item model in our routes module
 const Albums = require('../models/gallery_albums');
+const Pictures = require('../models/gallery_images');
 
 GalleryRoutes.route('/').get(function (req, res) {
   Albums.aggregate(
@@ -27,18 +28,28 @@ GalleryRoutes.route('/').get(function (req, res) {
     });
 });
 
-module.exports = GalleryRoutes;
-
-/*
-GalleryRoutes.route('/').get(function (req, res) {
-  Albums.find()
-    .sort('order')
-    .exec(function (err, menus) {
-      if (err) {
+GalleryRoutes.route('/view/:id').get(function (req, res) {
+  let id = req.params.id;
+  Pictures.aggregate(
+    [
+      { "$match": Pictures.where({_id: { $in: id }}).cast(Pictures) },
+      {
+        "$lookup": {
+          "from": "pictures",
+          "localField": "album_id",
+          "foreignField": "album_id",
+          "as": "others_pictures"
+        }
+      }
+    ])
+    .exec(function (err, pictures){
+      if(err){
         console.log(err);
       }
       else {
-        res.json(menus);
+        res.json(pictures);
       }
     });
-});*/
+});
+
+module.exports = GalleryRoutes;

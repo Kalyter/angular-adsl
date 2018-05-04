@@ -12,7 +12,7 @@ let Categories = new Schema ({
     type: String
   },
   menu_id: {
-    type: String
+    type: Number
   },
   order: {
     type: Number

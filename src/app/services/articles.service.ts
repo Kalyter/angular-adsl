@@ -107,6 +107,16 @@ export class ArticlesService {
       });
   }
 
+  getArticlesBrand(id) {
+    const uri = '/api/articles/findbybrand/' + id;
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
+  }
+
   getArticlesMenu(categories) {
     const uri = '/api/articles/findbymenu/';
     return this

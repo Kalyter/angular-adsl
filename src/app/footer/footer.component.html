@@ -5,7 +5,7 @@
         <div class="col-lg-6">
           <div style="margin-top: 5vh;">
             <i class="fa fa-map-marker"></i>
-            <p>ADSL Assistance Dépannage Labo<br/>183/189 avenue de Choisy<br/>75013 Paris</p>
+            <p [innerHTML]="adresse"></p>
           </div>
         </div>
         <div class="col-lg-6">
@@ -20,10 +20,10 @@
       </div>
     </div>
     <div class="col-lg-3">
-      <i class="fa fa-mobile" aria-hidden="true"></i> Mobile : +33 (0) 611 837 523<br/>
-      <i class="fa fa-phone" aria-hidden="true"></i> Phone : +33 (0) 954 208 760<br/>
-      <i class="fa fa-fax" aria-hidden="true"></i> Fax : +33 (0) 139 468 760<br/>
-      <i class="fa fa-envelope-o" aria-hidden="true"></i> Mail : infos@adsl-lesite.com
+      <i class="fa fa-mobile" aria-hidden="true"></i> Mobile : {{ config.mobile }}<br/>
+      <i class="fa fa-phone" aria-hidden="true"></i> Phone : {{ config.phone }}<br/>
+      <i class="fa fa-fax" aria-hidden="true"></i> Fax : {{ config.fax }}<br/>
+      <i class="fa fa-envelope-o" aria-hidden="true"></i> Mail : {{ config.mail }}
     </div>
     <div class="col-lg-3 text-right">About us.<br/>Worldwide company.<br/>Copyright 2018 by Kalyter.</div>
   </div>

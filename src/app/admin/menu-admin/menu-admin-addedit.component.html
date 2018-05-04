@@ -7,8 +7,12 @@
         <input type="text" name="title" [(ngModel)]="menu.title" class="form-control" required />
       </div>
       <div class="form-group">
-        <label for="link">Lien</label>
-        <input type="text" name="link" [(ngModel)]="menu.link" class="form-control" required />
+        <label for="link">Module</label>
+        <select class="form-control" [(ngModel)]="menu.link" name="link">
+          <ng-container *ngFor="let m of modules; trackBy: trackByFn">
+            <option value="{{m._id}}">{{m.title}}</option>
+          </ng-container>
+        </select>
       </div>
       <div class="form-group">
         <input type="hidden" name="order" [(ngModel)]="menu.order" class="form-control" value="0" />

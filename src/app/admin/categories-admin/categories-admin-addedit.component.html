@@ -16,7 +16,7 @@
       <div class="form-group"  >
         <label for="Menu">Menu</label>
       <select id="menu_choose" class="form-control" formControlName="menu_id">
-        <ng-container *ngFor="let m of listmenu | Orderby : 'order'">
+        <ng-container *ngFor="let m of listmenu | filterbyunder: 'link' : '0' : '==' | Orderby : 'order'">
         <option value="{{m._id}}">{{m.title}}</option>
         </ng-container>
       </select>
@@ -31,7 +31,7 @@
       <div *ngIf="show" class="form-group" >
         <label for="Menu">Catégorie principale</label>
         <select class="form-control" formControlName="cat_id">
-          <ng-container *ngFor="let c of listcat; trackBy: trackByFn">
+          <ng-container *ngFor="let c of listcat | filterbyunder: 'cat_id' : 'undefined' : '==='; trackBy: trackByFn">
             <option *ngIf="menu_select==c.menu_id" value="{{c._id}}">{{c.title}}</option>
           </ng-container>
         </select>

@@ -1,6 +1,5 @@
 <app-bar-menu></app-bar-menu>
 <br/>
-<h1>Menu</h1><br/><br/>
 <a routerLink="add" class="btn btn-primary">Ajouter Menu</a><br/><br/>
 
 <div class="card">
@@ -13,7 +12,7 @@
           dnd-sortable [sortableIndex]="i"  (onDropSuccess)="OrderMenus(i, $event)">
         <small>Position : <b>{{m.order}}</b></small> -
         <small>Nom du menu : </small><b>{{m.title}}</b> -
-        <small>Lien du menu : </small> <b>{{m.link}}</b>
+        <small>Module : </small> <b *ngIf="m.module_link[0]">{{m.module_link[0].title}}</b><b *ngIf="!m.module_link[0]">Articles</b>
 
         <a mwlConfirmationPopover
            [popoverTitle]="popoverTitle"

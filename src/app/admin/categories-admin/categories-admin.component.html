@@ -1,6 +1,5 @@
 <app-bar-menu></app-bar-menu>
 <br/>
-<h1>Catégories</h1><br/><br/>
 <a routerLink="add" class="btn btn-primary">Ajouter Catégorie</a><br/><br/>
 
 <div class="card">
@@ -9,11 +8,74 @@
   </div>
   <div class="card-body">
 
-    <ng-container *ngFor="let mc of menu;">
+    <ng-container *ngFor="let m of menu;">
 
-      <span *ngIf="thereIsUnder(mc._id, categories)" class="ml-2">Menu : {{ mc.title }}</span>
-    <ul class="list-group"  dnd-sortable-container [sortableData]="categories">
-      <ng-container *ngFor="let c of categories; let i=index">
+      <table *ngIf="m.categories_field.length>0" class="table table-striped" [dropZones]="['zone'+m._id]" dnd-sortable-container  [sortableData]="m.categories_field ">
+        <thead>
+        <tr>
+          <th width="30%"class="text-center">Menu : {{ m.title }}</th>
+          <th width="20%">Catégorie</th>
+          <th width="15%">Position</th>
+          <th width="15%">Sous-Menu</th>
+          <th width="20%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let cat of m.categories_field | Orderby: 'order'; trackBy: trackByFn;  let i = index;">
+
+          <tr [dragData]="m.categories_field"
+              dnd-sortable [sortableIndex]="i" [dropZones]="['zone'+cat.menu_id]" (onDropSuccess)="orderCategories(i, $event)">
+            <td colspan="2" *ngIf="Plus(0)">{{cat.title}}</td>
+            <td>Position : {{cat.order}}</td>
+            <td><span *ngIf="cat.under_menu"> <i style="color:green;margin-left: 1em;font-size: 1.5em;" class="fa fa-check-square-o" aria-hidden="true"></i></span></td>
+            <td>           <a mwlConfirmationPopover
+                               [popoverTitle]="popoverTitle"
+                               [popoverMessage]="popoverMessage"
+                               placement="left"
+                               (confirm)="deleteCategorie(cat._id)"
+                               (cancel)="cancelClicked = true" class="btn btn-danger btn-sm text-white float-right ml-3">Delete</a>
+              <a [routerLink]="['edit', cat._id]" class="btn btn-info btn-sm text-white float-right"> Edit</a></td>
+          </tr>
+            <ng-container *ngFor="let souscat of categories | Orderby: 'order'; let is = index;">
+              <tr *ngIf="souscat.cat_id==cat._id;" style="background-color: #dfe5ff;" [dropZones]="['souszone'+cat._id]" dnd-sortable-container  [sortableData]="categories" >
+                <td *ngIf="Plus(1)" colspan="2" style="padding-left: 50px;" [dragData]="categories"
+                    dnd-sortable [sortableIndex]="is" [dropZones]="['souszone'+cat._id]" (onDropSuccess)="orderCategories(i, $event)">{{souscat.title}}</td>
+                <td>Position : {{ myVar }}</td>
+                <td><span *ngIf="souscat.under_menu"> <i style="color:green;margin-left: 1em;font-size: 1.5em;" class="fa fa-check-square-o" aria-hidden="true"></i></span></td>
+                <td>           <a mwlConfirmationPopover
+                                  [popoverTitle]="popoverTitle"
+                                  [popoverMessage]="popoverMessage"
+                                  placement="left"
+                                  (confirm)="deleteCategorie(souscat._id)"
+                                  (cancel)="cancelClicked = true" class="btn btn-danger btn-sm text-white float-right ml-3">Delete</a>
+                  <a [routerLink]="['edit', souscat._id]" class="btn btn-info btn-sm text-white float-right"> Edit</a></td>
+              </tr>
+            </ng-container>
+
+        </ng-container>
+        </tbody>
+      </table>
+
+    </ng-container>
+
+  </div>
+</div>
+<div>
+
+</div>
+<div class="view-side-form">
+
+  <router-outlet></router-outlet>
+
+</div>
+
+
+<ng-container *ngFor="let mc of menu;">
+
+<!--
+  <span *ngIf="thereIsUnder(mc._id, categories)" class="ml-2">Menu : {{ mc.title }}</span>
+  <ul class="list-group"  dnd-sortable-container [sortableData]="categories">
+    <ng-container *ngFor="let c of categories; let i=index">
       <li *ngIf="c.menu_id==mc._id;" class="list-group-item" [dragData]="categories"
           dnd-sortable [sortableIndex]="i" (onDropSuccess)="orderCategories(i, $event)" >
         <span *ngIf="c.cat_id" style="margin-left: 50px;"></span>
@@ -35,18 +97,7 @@
         <a [routerLink]="['edit', c._id]" class="btn btn-info text-white float-right"> Edit</a><br/>
 
       </li>
-      </ng-container>
-    </ul>
-
     </ng-container>
+  </ul>
 
-  </div>
-</div>
-<div>
-
-</div>
-<div class="view-side-form">
-
-  <router-outlet></router-outlet>
-
-</div>
+</ng-container>-->

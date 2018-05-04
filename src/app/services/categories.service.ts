@@ -24,6 +24,17 @@ export class CategoriesService {
       });
   }
 
+  getSousCategories() {
+    const uri = '/api/categories/sous';
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+
+        return res;
+      });
+  }
+
   addCategorie(cat) {
     const uri = '/api/admin/categories/add';
     const obj = cat;

@@ -1,7 +1,6 @@
 <app-bar-menu></app-bar-menu>
 <br/>
-<h1>Gallery</h1><br/><br/>
-<a routerLink="add" class="btn btn-primary">Ajouter un album</a><br/><br/>
+<a (click)="addAlbum()" class="btn btn-primary">Ajouter un album</a><br/><br/>
 
 <div class="card">
   <div class="card-header bg-info text-white">
@@ -18,10 +17,16 @@
           <button type="submit" class="btn btn-primary btn-sm">Save</button>
         </form>
         <div [id]="a._id+'div'" (click)="changeTitle($event, a._id)" class="title-cat-mod">{{a.title}} <i class="fa fa-pencil-square-o" aria-hidden="true"></i></div><br/>
+
         <small>Nombres d'images : </small> {{ a.pictures.length || '0' }}
 
-        <a  class="btn btn-danger text-white float-right ml-3">Delete</a>
-        <a [routerLink]="['/', a._id]" class="btn btn-info text-white float-right"> Edit</a></li>
+        <a mwlConfirmationPopover
+           [popoverTitle]="popoverTitle"
+           [popoverMessage]="popoverMessage"
+           placement="left"
+           (confirm)="deleteAlbum(a._id)"
+           (cancel)="cancelClicked = true" class="btn btn-danger text-white float-right ml-3">Delete</a>
+        <a [routerLink]="['/admin/gallery/edit/', a._id]" class="btn btn-info text-white float-right"> Edit</a></li>
     </ul>
   </div>
 </div>

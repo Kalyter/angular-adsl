@@ -48,8 +48,10 @@ import { FooterComponent } from './footer/footer.component';
 import { AlbumsAdminComponent } from './admin/gallery-admin/albums-admin/albums-admin.component';
 import {GalleryService} from "./services/gallery.service";
 import { PicturesAdminComponent } from './admin/gallery-admin/pictures-admin/pictures-admin.component';
-
-
+import { GalleryComponent } from './gallery/gallery.component';
+import {GalleryViewComponent} from "./gallery/gallery-view.component";
+import { MainAdminComponent } from './admin/main-admin/main-admin.component';
+import {ConfigService} from "./services/config.service";
 
 @NgModule({
   declarations: [
@@ -80,7 +82,10 @@ import { PicturesAdminComponent } from './admin/gallery-admin/pictures-admin/pic
     VideosAdminEditComponent,
     FooterComponent,
     AlbumsAdminComponent,
-    PicturesAdminComponent
+    PicturesAdminComponent,
+    GalleryComponent,
+    GalleryViewComponent,
+    MainAdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'adsl'}),
@@ -99,7 +104,7 @@ import { PicturesAdminComponent } from './admin/gallery-admin/pictures-admin/pic
     })
   ],
   schemas: [ NO_ERRORS_SCHEMA],
-  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard, VideosService, GalleryService],
+  providers: [MenuService,PubSubService, BrandService, CategoriesService, ArticlesService, AuthService, AuthGuard, VideosService, GalleryService, ConfigService],
   bootstrap: [AppComponent, MenuComponent, FooterComponent]
 })
 

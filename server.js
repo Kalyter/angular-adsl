@@ -5,6 +5,7 @@ const express = require('express'),
   mongoose = require('mongoose'),
   config = require('./server/config/DB'),
   // routes
+  ConfigRoutes = require('./server/routes/configRoutes'),
   MenuRoutes = require('./server/routes/menuRoutes'),
   BrandRoutes = require('./server/routes/brandRoutes'),
   CategoriesRoutes = require('./server/routes/categoriesRoutes'),
@@ -12,11 +13,13 @@ const express = require('express'),
   GalleryRoutes = require('./server/routes/galleryRoutes'),
   VideosAdminRoutes = require('./server/routes/admin/videosAdminRoutes'),
   VideosRoutes = require('./server/routes/videosRoutes'),
+  ConfigAdminRoutes = require('./server/routes/admin/configAdminRoutes'),
   ArticlesAdminRoutes = require ('./server/routes/admin/articlesAdminRoutes'),
   BrandAdminRoutes = require('./server/routes/admin/brandAdminRoutes'),
   CategoriesAdminRoutes = require('./server/routes/admin/categoriesAdminRoutes'),
   MenuAdminRoutes = require('./server/routes/admin/menuAdminRoutes'),
   AlbumsAdminRoutes = require('./server/routes/admin/albumsAdminRoutes'),
+  PicturesAdminRoutes = require('./server/routes/admin/picturesAdminRoutes'),
   FilesAdminRoutes = require('./server/routes/admin/filesAdminRoutes'),
   ArticlesRoutes = require ('./server/routes/articlesRoutes');
 
@@ -67,18 +70,21 @@ app.use(cors());
 
 // routes use
 app.use('/api/menu', MenuRoutes);
+app.use('/api/config', ConfigRoutes);
 app.use('/api/brand', BrandRoutes);
 app.use('/api/categories', CategoriesRoutes);
 app.use('/api/articles', ArticlesRoutes);
 app.use('/api/files', FilesRoutes);
 app.use('/api/videos', VideosRoutes);
 app.use('/api/gallery', GalleryRoutes);
+app.use('/api/admin/config', authCheck, ConfigAdminRoutes);
 app.use('/api/admin/articles', authCheck, ArticlesAdminRoutes);
 app.use('/api/admin/files', authCheck, FilesAdminRoutes);
 app.use('/api/admin/brand', authCheck,BrandAdminRoutes);
 app.use('/api/admin/categories', authCheck, CategoriesAdminRoutes);
 app.use('/api/admin/menu', authCheck, MenuAdminRoutes);
 app.use('/api/admin/albums', authCheck, AlbumsAdminRoutes);
+app.use('/api/admin/pictures', authCheck, PicturesAdminRoutes);
 app.use('/api/admin/videos', authCheck, VideosAdminRoutes);
 
 app.use(function(req, res, next) {

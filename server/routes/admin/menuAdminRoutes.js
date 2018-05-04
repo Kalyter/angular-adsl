@@ -3,6 +3,34 @@ const MenuAdminRoutes = express.Router();
 
 // Require Item model in our routes module
 const Menu = require('../../models/Menu');
+const Modules = require('../../models/Modules');
+
+
+const multer = require('multer');
+const mime = require('mime');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'dist/assets/img/brand/')
+  },
+  filename: function (req, file, cb) {
+
+    cb(null, file.originalname + '.' + mime.getExtension(file.mimetype));
+
+  }
+});
+const upload = multer({storage: storage}).single('file');
+
+
+MenuAdminRoutes.route('/upload/main').post(function (req, res, next) {
+  upload(req, res, function (err) {
+    if (err) {
+      // An error occurred when uploading
+      console.log(err);
+      return res.status(422).send("an Error occured")
+    }
+  });
+});
 
 MenuAdminRoutes.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
@@ -64,6 +92,15 @@ MenuAdminRoutes.route('/delete/:id').get(function (req, res) {
     if(err) res.json(err);
     else res.json('Successfully removed');
   });
+});
+
+MenuAdminRoutes.route('/update/modules').put(function (req, res) {
+  let item = req.body;
+  Modules.update({_id: 1}, {"$set": {"title_m": item.title_m, "content_m": item.content_m, "img_1": item.img_1, "img_2": item.img_2}}, function (err, mod) {
+    if (err) res.json(err);
+    else res.json('Successfully updated');
+  });
+
 });
 
 module.exports = MenuAdminRoutes;

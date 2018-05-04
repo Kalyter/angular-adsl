@@ -44,7 +44,7 @@ export class CategoriesAdminAddeditComponent implements OnInit {
     this.getMenus();
 
     // retrieve last order
-    this.categoriesService.currentMessage.subscribe(message => this.message = message)
+    this.categoriesService.currentMessage.subscribe(message => this.message = message);
 
     // still last order check
     if(this.message){

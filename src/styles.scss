@@ -52,9 +52,8 @@ h1 {
 
 .content-base {
   min-height: 100vh;
-  background-color: white;
   background: #fff;
-  padding: 4em 2em 2em;
+  padding: 2em 2em 2em;
   position: relative;
 }
 
@@ -89,7 +88,17 @@ body {
   bottom: 0;
   width: 100%;
   line-height: 30px;
-  height: auto;
+  max-height: 200px;
+  padding: 10px;
+}
+
+.box-content-picture {
+  background-color: white;
+  bottom: 0;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 30px;
   padding: 10px;
 }
 
@@ -331,6 +340,20 @@ body {
   top: 5px;
 }
 
+[class*='close2-'] {
+  color: rgba(255, 0, 0, 0.65) !important;
+  font: 20px/100% arial, sans-serif;
+  position: absolute;
+  right: 10px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 8px;
+}
+
+.close2-thik:hover{
+  color: rgba(0, 0, 255, 0.65) !important;
+}
+
 .central-form-article-view ::-webkit-scrollbar {
   width: 5px;
 }
@@ -353,6 +376,9 @@ body {
 }
 
 .close-thik:after {
+  content: '✖'; /* UTF-8 symbol */
+}
+.close2-thik:after {
   content: '✖'; /* UTF-8 symbol */
 }
 .slider-outer{
@@ -399,7 +425,25 @@ body {
   top: 22vh;
   margin-left: auto;
   margin-right: auto;
+  max-height: 75vh;
 }
+.central-form-gallery-view {
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
+  background: transparent;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 70px;
+}
+.img-gallery {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-height: 75vh;
+
+}
+
 @media (min-width: 1200px) {
   .central-form-article-view {
     width:70%;
@@ -799,4 +843,56 @@ nav.control-window a.deactivate {
 }
 .form-title{
   display: inline-block;
+}
+
+.polaroid-images .pic-link
+{
+  background: white;
+  display: inline;
+  float: left;
+  margin: 0 0px 30px;
+  padding: 10px 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, .3);
+  -moz-box-shadow: 0 1px 10px rgba(0,0,0,.3);
+  box-shadow: 0 1px 10px rgba(0,0,0,.3);
+  -webkit-transition: all .15s linear;
+  -moz-transition: all .15s linear;
+  transition: all .15s linear;
+  z-index:0;
+  position:relative;
+  width: 100%;
+}
+
+.title-pic {
+  color: #333;
+  font-size: 15px;
+  position: relative;
+  top:15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.polaroid-images img {
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.8;
+}
+
+.polaroid-images img:hover {
+  opacity: 1;
+}
+
+.polaroid-images .main:hover{
+  -webkit-transform: scale(1.08);
+  -moz-transform: scale(1.08);
+  transform: scale(1.08);
+  z-index:10;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, .7);
+  -moz-box-shadow: 0 10px 20px rgba(0,0,0,.7);
+  box-shadow: 0 10px 20px rgba(0,0,0,.7);
 }

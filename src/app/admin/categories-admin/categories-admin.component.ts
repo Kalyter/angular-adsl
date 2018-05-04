@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CategoriesService} from "../../services/categories.service";
 import {PubSubService} from "../../services/pub-sub.service";
 import {Subscription} from "rxjs/Subscription";
@@ -10,7 +10,7 @@ import {MenuService} from "../../services/menu.service";
   templateUrl: './categories-admin.component.html',
   styleUrls: ['./categories-admin.component.scss']
 })
-export class CategoriesAdminComponent implements OnInit {
+export class CategoriesAdminComponent implements OnInit, OnDestroy {
   categories:any;
   public popoverTitle: string = 'Confirmation';
   public popoverMessage: string = 'Are you sure you want to delete this categories ?';
@@ -19,22 +19,37 @@ export class CategoriesAdminComponent implements OnInit {
   menu: any;
   req: any;
   subscription: Subscription;
-
+  myVar: number = 0;
   constructor(private categoriesService:CategoriesService,
               private pubsubService:PubSubService,
               private menuService:MenuService,
               private router:Router) { }
 
   ngOnInit() {
-    this.getCategories();
-    // retrieve menu list for link with cat
-    this.getMenus();
+    this.menuService.getMenuandCat()
+      .subscribe( result => {
+        this.menu = result;
+      });
+    this.categoriesService.getSousCategories()
+      .subscribe(result => this.categories = result);
 
     // update cat when updated
     this.subscription = this.pubsubService.on('cat-updated')
       .subscribe(() => setTimeout(() => {
         this.getCategories();
       }, 1000));
+
+  }
+
+  Plus(reset){
+    if(reset === 0) {
+      this.myVar = 0;
+    }
+    else {
+      this.myVar = this.myVar+1;
+    }
+    return true;
+
   }
 
   ngOnDestroy() {
@@ -42,11 +57,7 @@ export class CategoriesAdminComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  // Retrive menu function
-  getMenus() {
-    this.menuService.getMenu()
-      .subscribe(result => this.menu = result);
-  }
+
   getCategories() {
     this.categoriesService.getCategories()
       .subscribe(result => {
@@ -71,18 +82,9 @@ export class CategoriesAdminComponent implements OnInit {
 
   }
 
-  thereIsUnder(idmenu: number, req2: any) {
-    if(!req2) return [];
-    if(!idmenu) return req2;
-
-    var req3 = req2.map(i => i.menu_id);
-    let req4 = req3.filter(function(element){return (element==idmenu)});
-    return req4.length !== 0;
-  }
-
   // order categories update
   orderCategories($i, $event) {
-
+    console.log($event);
     $event.forEach((item, key) => {
       item.order = key + 1;
     });
@@ -92,4 +94,7 @@ export class CategoriesAdminComponent implements OnInit {
     // redirect to users view
     this.router.navigate(['admin/categories']);
   }
+
+
 }
+

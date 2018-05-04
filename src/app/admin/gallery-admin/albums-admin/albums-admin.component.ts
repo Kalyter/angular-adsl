@@ -13,15 +13,16 @@ export class AlbumsAdminComponent implements OnInit, OnDestroy {
   albums:any;
   subscription: Subscription;
   title:any;
+  public popoverTitle: string = 'Confirmation';
+  public popoverMessage: string = 'Are you sure you want to delete this album ?';
+  public cancelClicked: boolean = false;
   constructor(private galleryService: GalleryService,
               private pubsubService: PubSubService,
               private router: Router) { }
 
   ngOnInit() {
-    // retrieve menus
     this.getallAlbums();
 
-    // update menu when updated
     this.subscription = this.pubsubService.on('albums-updated')
       .subscribe(() => setTimeout(() => {
         this.getallAlbums();
@@ -52,7 +53,7 @@ export class AlbumsAdminComponent implements OnInit, OnDestroy {
   }
 
   changeTitle(e, id){
-    const host = e.target.parentElement as HTMLElement;
+    const host = e.target as HTMLElement;
     host.setAttribute("style", "display:none;")
     let tag = id+"form";
     const form = document.getElementById(tag) as HTMLElement;
@@ -70,6 +71,29 @@ export class AlbumsAdminComponent implements OnInit, OnDestroy {
     this.pubsubService.publish('albums-updated');
     // redirect to users view
     this.router.navigate(['admin/gallery']);
+  }
+
+  addAlbum(){
+    let order = this.albums.length+1;
+    let newalbum = {
+      title: 'Nouveau album',
+      order: order
+    };
+
+    this.galleryService.addAlbum(newalbum);
+    setTimeout(() => {
+      this.getallAlbums();
+    }, 500);
+
+  }
+
+  deleteAlbum(id: number) {
+
+    this.galleryService.deleteAlbum(id).subscribe(res => {
+      console.log('Deleted');
+      this.getallAlbums();
+    });
+
   }
 
 }

@@ -3,6 +3,7 @@ import {fadeTransition} from "../animations/fade2.animation";
 import {ActivatedRoute} from "@angular/router";
 import {VideosService} from "../services/videos.service";
 import {DomSanitizer, Title} from "@angular/platform-browser";
+import {ConfigService} from "../services/config.service";
 
 @Component({
   templateUrl: './view-videos.component.html',
@@ -18,10 +19,13 @@ export class ViewVideosComponent implements OnInit {
     youtube_id: String,
   };
   yurls: any;
-
+  config:any = {
+    title: String
+  };
   constructor(private route: ActivatedRoute,
               private videosService: VideosService,
               private sanitizer: DomSanitizer,
+              private configService:ConfigService,
               private titleService: Title) {
   }
 
@@ -32,7 +36,10 @@ export class ViewVideosComponent implements OnInit {
     this.videosService.viewVideo(this.idvid)
       .subscribe(result => {
         this.video = result;
-        this.titleService.setTitle( "Assistance Dépannage Service Labo - Vidéos -" + this.video.title );
+        this.configService.currentConfig.subscribe(message => {
+          this.config = message;
+          this.titleService.setTitle(this.config.title+" - Vidéos - "+ this.video.title);
+        });
         let yurl = 'https://www.youtube.com/embed/' + this.video.youtube_id;
         this.yurls =
           this.sanitizer.bypassSecurityTrustResourceUrl(yurl);

@@ -3,6 +3,7 @@ import {ArticlesService} from "../services/articles.service";
 import {fadeTransition} from "../animations/fade2.animation";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
+import {ConfigService} from "../services/config.service";
 
 
 @Component({
@@ -26,9 +27,13 @@ export class ViewArticlesComponent implements OnInit {
     title: String,
   };
   slideIndex: number = 1;
+  config:any = {
+    title: String
+  };
 
   constructor(private route: ActivatedRoute,
               private articlesService: ArticlesService,
+              private configService:ConfigService,
               private titleService: Title) {
   }
 
@@ -47,7 +52,10 @@ export class ViewArticlesComponent implements OnInit {
           return row;
         });
         this.showDivs(this.slideIndex);
-        this.titleService.setTitle( "Assistance Dépannage Service Labo - Articles - " + this.article.title );
+        this.configService.currentConfig.subscribe(message => {
+          this.config = message;
+          this.titleService.setTitle(this.config.title+" - Articles - " + this.article.title);
+        });
       });
   }
 

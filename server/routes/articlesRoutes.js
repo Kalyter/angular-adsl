@@ -58,6 +58,23 @@ ArticlesRoutes.route('/findbymenu/').post(function (req, res) {
     });
 });
 
+ArticlesRoutes.route('/findbybrand/:id').get(function (req, res) {
+  let id = req.params.id;
+  Articles.find({ brand_id: { $in: id } })
+    .exec(function (err, art) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.json(art.reduce(function (arr, row) {
+          return arr.concat(row);
+        }, []));
+      }
+    });
+
+});
+
+
 
 ArticlesRoutes.route('/view/:id').get(function (req, res) {
   let id = req.params.id;

@@ -1,0 +1,87 @@
+<app-bar-menu></app-bar-menu>
+<br/>
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Main Module
+  </div>
+  <div class="card-body">
+    <form #statusNgForm='ngForm' (submit)='handleSubmit()'>
+      <div class="form-group">
+        <button class="btn btn-primary" >Save</button>
+        <button style="margin-left: 10px" type="button" class="btn btn-success" (click)="onOpen()">Pictures Manager</button>
+      </div>
+    <div class="row featurette">
+      <div class="col-md-7">
+        <input type="text" name="title_m[0]" class="form-control" [(ngModel)]="main.title_m[0]" required />
+        <input type="text" name="content_m[0]" class="form-control" [(ngModel)]="main.content_m[0]" required />
+      </div>
+      <div class="col-md-5" dnd-droppable (onDropSuccess)="dropOut($event, 1)" [style.background-image]="'url(assets/img/brand/' + main.img_1 + ')'"
+           style="width:500px;height:500px;background-size: cover;background-position: 60% 50%">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <input type="text" name="title_m[1]" class="form-control" [(ngModel)]="main.title_m[1]" required />
+        <input type="text" name="content_m[1]" class="form-control" [(ngModel)]="main.content_m[1]" required />
+      </div>
+      <div class="col-md-5" dnd-droppable (onDropSuccess)="dropOut($event, 2)" [style.background-image]="'url(assets/img/brand/' + main.img_2 + ')'"
+           style="500px;height:500px;background-size: cover;background-position: 60% 50%">
+
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="filemanager" [hidden]="!show" ngDraggable [handle]="DemoHandle">
+  <div class="topbar" #DemoHandle>
+    <nav class="control-window">
+      <a (click)="show = !show" class="closed">close</a>
+      <a (click)="show = !show" class="minimize">minimize</a>
+      <a (click)="show = !show" class="maximize">maximize</a>
+    </nav>
+    <a class="button-upload" (click)="show2 = !show2"><span class="fa fa-plus"></span> Upload</a>
+    <h1 class="topbar-title">File Manager</h1>
+    <input class="search-file" [(ngModel)]="searchText" placeholder="Search"/>
+  </div>
+  <div>
+    <div class="workzone-left" >
+    </div>
+    <div class="workzone-right">
+
+      <ng-container *ngFor="let i of img  | search : searchText">
+        <div class="thumb-2" >
+          <img class="thumb" [src]="'assets/img/brand/' + i" [alt]="i" dnd-draggable [dragData]="[i, 'main']" /><br/>
+          <span>{{ i }}</span></div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>
+
+<div class="filemanager2" *ngIf="show2" ngDraggable [handle]="DemoHandle2">
+  <div class="topbar2" #DemoHandle2>
+    <nav class="control-window">
+      <a (click)="show2 = !show2" class="closed">close</a>
+      <a (click)="show2 = !show2" class="minimize">minimize</a>
+      <a (click)="show2 = !show2" class="maximize">maximize</a>
+    </nav>
+    <h1 class="topbar-title">Upload Manager</h1>
+  </div>
+  <div id="progress_bar"><div class="percent" id="percent">0%</div></div>
+  <div dnd-droppable class="dropzone-upload"
+       (onDropSuccess)="transferDataSuccess($event.mouseEvent.dataTransfer)">
+    <div style="text-align: center;margin: 2em 0;">
+      <input (change)="transferDataSuccess($event.target)" style="position: absolute; opacity: 0; filter: alpha(opacity = 0);width: 100%;height: 100%;top:0;left:0;" type="file" name="file" multiple />
+      <div>
+        <span style="font-weight: 700;text-transform: uppercase;">Drop files to upload</span>
+        <p style="line-height: 1.25;color: #909ba1;font-size: .9em;">or click to pick manually</p>
+      </div>
+    </div>
+    <output id="list"></output>
+  </div>
+</div>

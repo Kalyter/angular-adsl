@@ -1,11 +1,11 @@
-import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ArticlesService} from "../services/articles.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {CategoriesService} from "../services/categories.service";
-import {fadeInAnimation} from "../animations/fade.animation";
 import { ChangeDetectorRef } from "@angular/core";
-import {trigger, group, query, animate, transition, style, animateChild, state} from '@angular/animations';
+import {trigger, animate, transition, style, state} from '@angular/animations';
 import {Title} from "@angular/platform-browser";
+import {ConfigService} from "../services/config.service";
 
 @Component({
   templateUrl: './articles.component.html',
@@ -40,15 +40,17 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   private changeDetectorRef: ChangeDetectorRef;
   public boxState: string;
   runChangeDetection: boolean = false;
+  config:any = {
+    title: String
+  };
 
   constructor(private articlesService: ArticlesService,
               private route: ActivatedRoute,
               private categoriesService:CategoriesService,
-              private router: Router,
+              private configService:ConfigService,
               private titleService: Title,
               changeDetectorRef: ChangeDetectorRef) {
     this.boxState = "active";
-    console.log(this.boxState);
     this.changeDetectorRef = changeDetectorRef;
   }
 
@@ -60,8 +62,10 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       this.param = params['for'];
       this.runChangeDetection = true;
       this.initialiseState();
-      this.titleService.setTitle( "Assistance Dépannage Service Labo - Articles" );
-
+      this.configService.currentConfig.subscribe(message => {
+        this.config = message;
+        this.titleService.setTitle(this.config.title+" - Articles");
+      });
 
     });
   }
@@ -90,13 +94,18 @@ export class ArticlesComponent implements OnInit, OnDestroy {
           this.boxState = "active";
           console.log(this.boxState+" test");
           let idvar = this.route.snapshot.params['id'];
-          if(this.route.snapshot.params['for'] == "cat")
+
+          if(this.route.snapshot.params['for'] === "cat")
           {
             this.getArticlesForCat(idvar);
+          }
+          else if(this.route.snapshot.params['for'] === "brand"){
+            this.getArticlesForBrand(idvar);
           }
           else{
             this.getArticlesForMenu(idvar);
           }
+
         },
         ( 1000 )
       );
@@ -108,9 +117,12 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   onLoad(){
     this.categoriesService.getCategories().subscribe( result => {this.cats = result;})
     let idvar = this.route.snapshot.params['id'];
-    if(this.route.snapshot.params['for'] == "cat")
+    if(this.route.snapshot.params['for'] === "cat")
     {
       this.getArticlesForCat(idvar);
+    }
+    else if(this.route.snapshot.params['for'] === "brand"){
+      this.getArticlesForBrand(idvar);
     }
     else{
       this.getArticlesForMenu(idvar);
@@ -119,7 +131,20 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   }
 
   getArticlesForCat(id) {
+    this.categoriesService.getCategories()
+      .subscribe(result => this.categories = result);
+
     this.articlesService.getArticlesCat(id)
+      .subscribe(result => {
+        this.articles = result;
+      });
+  }
+
+  getArticlesForBrand(id) {
+    this.categoriesService.getCategories()
+      .subscribe(result => this.categories = result);
+
+    this.articlesService.getArticlesBrand(id)
       .subscribe(result => {
         this.articles = result;
       });

@@ -24,9 +24,54 @@ export class MenuService {
       });
   }
 
+  getMenuandCat() {
+    const uri = '/api/menu/cat';
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+
+        return res;
+      });
+  }
+
   changeOrder(message: number) {
     this.messageSource.next(message)
   }
+
+  getModules() {
+    const uri = '/api/menu/modules';
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+
+        return res;
+      });
+  }
+
+  getMainModules() {
+    const uri = '/api/menu/modules/main';
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+
+        return res;
+      });
+  }
+
+  getImagesBrands() {
+    const uri = '/api/files/brands';
+    return this
+      ._http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
+
+  }
+
 
   editMenu(id) {
     const uri = '/api/admin/menu/edit/' + id;
@@ -84,5 +129,25 @@ export class MenuService {
       .subscribe(res => console.log('Done'));
   }
 
+  updateMain(obj) {
+    const uri = '/api/admin/menu/update/modules';
+    this
+      ._http
+      .put(uri, obj, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+      })
+      .subscribe(res => console.log('Done'));
+  }
+
+  uploadImages(obj) {
+    const uri = '/api/admin/menu/upload/main';
+    return this._http.post(uri, obj, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    })
+      .toPromise()
+      .catch(reason => {
+        console.log(reason);
+      });
+  }
 
 }

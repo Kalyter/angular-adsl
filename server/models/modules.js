@@ -13,6 +13,18 @@ let Modules = new Schema ({
   },
   link: {
     type: String
+  },
+  title_m: {
+    type: Array
+  },
+  content_m: {
+    type: Array
+  },
+  img_1: {
+    type: String
+  },
+  img_2: {
+    type: String
   }
 },{
   collection: 'modules'

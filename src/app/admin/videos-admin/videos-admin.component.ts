@@ -4,6 +4,7 @@ import {Title} from "@angular/platform-browser";
 import {PubSubService} from "../../services/pub-sub.service";
 import {Subscription} from "rxjs/Subscription";
 import {Router} from "@angular/router";
+import {ConfigService} from "../../services/config.service";
 
 @Component({
   selector: 'app-videos-admin',
@@ -16,15 +17,23 @@ export class VideosAdminComponent implements OnInit, OnDestroy {
   public popoverTitle: string = 'Confirmation';
   public popoverMessage: string = 'Are you sure you want to delete this video ?';
   public cancelClicked: boolean = false;
+  config:any = {
+    title: String
+  };
 
   constructor(private videosService: VideosService,
               private titleService: Title,
               private pubsubService:PubSubService,
+              private configService:ConfigService,
               private router:Router) { }
 
   ngOnInit() {
     this.getVideos();
-    this.titleService.setTitle( "Assistance Dépannage Service Labo - Admin Vidéos" );
+
+    this.configService.currentConfig.subscribe(message => {
+      this.config = message;
+      this.titleService.setTitle(this.config.title+" - Admin Vidéos");
+    });
 
     //check if videos are updated and reload if yes
     this.subscription = this.pubsubService.on('video-updated')

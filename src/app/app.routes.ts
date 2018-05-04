@@ -21,6 +21,9 @@ import {VideosAdminAddComponent} from "./admin/videos-admin/videos-admin-add.com
 import {VideosAdminEditComponent} from "./admin/videos-admin/videos-admin-edit.component";
 import {AlbumsAdminComponent} from "./admin/gallery-admin/albums-admin/albums-admin.component";
 import {PicturesAdminComponent} from "./admin/gallery-admin/pictures-admin/pictures-admin.component";
+import {GalleryComponent} from "./gallery/gallery.component";
+import {GalleryViewComponent} from "./gallery/gallery-view.component";
+import {MainAdminComponent} from "./admin/main-admin/main-admin.component";
 
 
 // Route Configuration
@@ -28,7 +31,10 @@ export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'admin/home', component: HomeAdminComponent, canActivate: [
     AuthGuard
-  ], data: { animation: 'admin', title: 'Assistance Dépannage Labo - Admin' }},
+  ], data: { animation: 'admin' }},
+  { path: 'admin/main', component: MainAdminComponent, canActivate: [
+    AuthGuard
+  ], data: { animation: 'adminmain' }},
   {
     path: 'admin/brand',
     component: BrandAdminComponent, canActivate: [
@@ -78,17 +84,21 @@ export const routes: Routes = [
       { path: 'edit/:id', component: MenuAdminAddeditComponent,  data: { animation: 'editmenu' } }
     ],  data: { animation: 'adminmenu' }
   },
-  { path: 'admin/gallery', component: AlbumsAdminComponent,  data: { animation: 'admingal', title: 'Assistance Dépannage Labo - Gallery' }},
-  { path: 'admin/gallery/:id', component: PicturesAdminComponent,  data: { animation: 'adminpic'}},
-  { path: 'main', component: MainComponent,  data: { animation: 'main', title: 'Assistance Dépannage Labo - Home' }},
+  { path: 'admin/gallery', component: AlbumsAdminComponent,  data: { animation: 'admingal' }},
+  { path: 'admin/gallery/edit/:id', component: PicturesAdminComponent,  data: { animation: 'adminpic'}},
+  { path: 'main', component: MainComponent,  data: { animation: 'main' }},
+  { path: 'gallery', component: GalleryComponent,
+    children: [
+      { path: 'view/:id', component: GalleryViewComponent,  data: { animation: 'viewpic' } }
+    ],  data: { animation: 'gallery' }},
   { path: 'videos', component: VideosComponent,
     children: [
-      { path: 'view/:id', component: ViewVideosComponent,  data: { animation: 'viewvid', title: 'Assistance Dépannage Labo - View vidéos' } }
-    ],  data: { animation: 'videos', title: 'Assistance Dépannage Labo - Vidéos' }},
+      { path: 'view/:id', component: ViewVideosComponent,  data: { animation: 'viewvid' } }
+    ],  data: { animation: 'videos' }},
   { path: 'articles/:for/:id', component: ArticlesComponent,
     children: [
-    { path: 'view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart', title: 'Assistance Dépannage Labo - View Articles' } }
-  ],  data: { animation: 'articles', title: 'Assistance Dépannage Labo - Articles' }
+    { path: 'view/:id', component: ViewArticlesComponent,  data: { animation: 'viewart' } }
+  ],  data: { animation: 'articles' }
   },
   {
     path: 'callback',
